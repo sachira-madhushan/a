@@ -16,6 +16,7 @@
 </body>
 </html>
 
+.................................................................................................................
 
 <?php 	
 		
@@ -44,3 +45,183 @@
 			}
 		}
 ?>
+
+......................................................................
+
+ID card infomation
+
+<h3>Srilankan ID Card Detail Suplier</h3>
+        <form action="index.php" method="post">
+            <label for="">enter your id number :</label>
+            <input class = "box"type="text" name="id_no"><br>
+            <input class ="btn" type="submit">
+        </form> 
+
+            <?php 
+        if(isset($_POST["id_no"])){
+            
+            $id_num = $_POST["id_no"];
+            if(strlen($id_num) == 12){
+                new_sys($id_num);
+            }
+            else if (strlen($id_num) == 10){
+                old_sys($id_num);
+            }
+            else{
+                echo "<h4>you enterd invalid number<h4>";
+            }
+            
+        }
+
+        function new_sys($id_num){
+            $year = substr($id_num,0,4);
+            $key = substr($id_num,4,3);
+
+            echo "year :".$year;
+            gender($key);
+            b_day($key);
+            
+        }
+
+        function old_sys($id_num){
+            $year = "year : 19".substr($id_num,0,2);
+            $key = substr($id_num,2,3);
+
+            echo $year;
+            gender($key);
+            b_day($key);
+        }
+        
+        function gender($key){
+            if($key <= 500){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+        
+        function findFirstNearestSmallerNumber($arr, $target) {
+            $nearestNumber = null;
+        
+        
+            for ($i = 0; $i < count($arr); $i++) {
+                if ($arr[$i] < $target) {
+                    $nearestNumber = $i;
+                } else {
+                    $months=$i;
+                    break;
+                }
+            }
+        
+            return $nearestNumber;
+            
+            
+        }
+
+        function b_day($key){
+            $sumday =  array(31,60,91,121,152,182,213,244,274,305,335,366);
+            if(gender($key)== true){
+                $n_day = $sumday[findFirstNearestSmallerNumber($sumday,intval($key))];
+                $birth_day =$key - $n_day;
+                
+                echo "<br>";
+                echo "Gender : male";
+                echo "<br>";
+                echo "Birthday : $birth_day";
+
+                months(findFirstNearestSmallerNumber($sumday,intval($key)));
+            }
+            else{
+                $g_day = intval($key)-500;
+                $n_day = $sumday[findFirstNearestSmallerNumber($sumday,$g_day)];
+                $birth_day = $g_day - $n_day;
+
+                echo "<br>";
+                echo "Gender : female";
+                echo "<br>";
+                echo "Birthday : $birth_day";
+
+                months(findFirstNearestSmallerNumber($sumday,$g_day));
+            }
+        }
+        
+        function months($index){
+            $index+=1;
+
+            $mo_en = array ("January","February","March","April","May","June","July","August","September","October","November","December");
+
+            echo "<br>";
+            echo "month  : $mo_en[$index]";
+        }
+        
+        
+        ?>
+    </div>
+
+
+.......................................................................................................
+
+Form validation
+
+<?php
+// define variables and set to empty values
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+      $nameErr = "Only letters and white space allowed";
+    }
+  }
+  
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+    // check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErr = "Invalid email format";
+    }
+  }
+    
+  if (empty($_POST["website"])) {
+    $website = "";
+  } else {
+    $website = test_input($_POST["website"]);
+    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
+      $websiteErr = "Invalid URL";
+    }
+  }
+
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
+
+............................................................................................................
+
