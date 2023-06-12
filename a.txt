@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<form method="post" action="data.php">
+		Email
+		<input type="email" name="email"><br>
+		Password
+		<input type="password" name="pass"><br>
+		<button name="log">register</button>
+	</form>
+</body>
+</html>
+
+
+<?php 	
+		
+		$con =mysqli_connect("localhost","root","","fuck");
+
+		if($con){
+				echo "Connection success<br>";
+		}
+		else{
+			echo "error";
+		}
+
+		if(isset($_POST['log'])){
+			$email = $_POST['email'];
+			$password = $_POST['pass'];
+			/*echo $email." ".$password;*/
+			$query="Insert into register(email,password) values('$email','$password')";
+
+			$result=mysqli_query($con,$query);
+
+			if($result){
+				echo "registration success";
+			}
+			else{
+				echo "error while registration";
+			}
+		}
+?>
