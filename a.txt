@@ -1,319 +1,393 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
-	<form method="post" action="data.php">
-		Email
-		<input type="email" name="email"><br>
-		Password
-		<input type="password" name="pass"><br>
-		<button name="log">register</button>
-	</form>
-</body>
-</html>
+[19:45, 15/06/2023] Shehara Trinco Cs: abstract class shape
+{
+	public shape(double base);
+	this.base = base;
+	abstract String toString();
+	public double getArea();
+	System.err.println("Shape unknown! Cannot compute area!");
+    return 0;
+}
+abstract class twoD extends shape
+{
+	 abstract double getArea();
+	 abstract double getCircumference();
+}
+class triangle extends twoD
+{
+	double base,height,side1,side2,side3;
+	this.base = base;
+	this.height = height;
+	this.side1 = side1;
+	this.side2 = side2;
+	this.side3 = side3;
+	System.out.println("Area: " + ((base1*height1)/2));
+	System.out.println("Circumference = " (side1+side2+side3));
+}
+class rectangle extends twoD
+{
+	double height,width;
+	System.out.println("Area: " + (height*width));
+	System.out.println("Circumference = " + (2*(height+width)));
+}
+class circle extends twoD
+{
+	double radius;
+	System.out.println("Area: " + (pi*radius*radius));
+	System.out.println("Circumference = " + (2*pi*radius));
+}
+abstract class threeD extends shape
+{
+	double getSurface();
+	double getVolume();
+}
+abstract class box extends threeD
+{
+	double height,width,length;
+	System.out.println("surface = " + (2*(height*width + width*length + length*height)));
+	System.out.println("volume = " + height*width*length);
+}
+abstract class cone extends threeD
+{
+	double radius,height;
+	System.out.println("surface = " + (2*pi*radius(radius+height)));
+	System.out.println("volume = " + ((pi*radius*radius*height)/3));
+}
+abstract class cylinder extends threeD
+{
+	double radius,height;
+	System.out.println("surface = " + (2*pi*radius(radius+height)));
+	System.out.println("volume = " + (pi*radius*radius*height));
+}
+abstract class sphere extends threeD
+{
+	double radius;
+	System.out.println("surface = " + (4*pi*radius*radius));
+	System.out.println("volume = " + ((4*pi*radius*radius*radius)/3));
+}
+class testAbstraction
+{
+	public static void main(String args[])
+	{
+		shape s1 = new rectangle(3,5);
+		System.out.println(s1);
+	}
+}
+[19:47, 15/06/2023] Shehara Trinco Cs: public class shapes
+{
+	public shape(double base);
+	this.base = base;
+	public double getArea();
+	System.err.println("Shape unknown! Cannot compute area!");
+    return 0;
+}
+class twoD extends shapes
+{
+	 double getArea();
+	 double getCircumference();
+}
+class triangle extends twoD
+{
+	double base,height,side1,side2,side3;
+	this.base = base;
+	this.height = height;
+	this.side1 = side1;
+	this.side2 = side2;
+	this.side3 = side3;
+	System.out.println("Area: " + ((base1*height1)/2));
+	System.out.println("Circumference = " (side1+side2+side3));
+}
+class rectangle extends twoD
+{
+	double height,width;
+	System.out.println("Area: " + (height*width));
+	System.out.println("Circumference = " + (2*(height+width)));
+}
+class circle extends twoD
+{
+	double radius;
+	double pi = 3.14159;
+	System.out.println("Area: " + (pi*radius*radius));
+	System.out.println("Circumference = " + (2*pi*radius));
+}
+class threeD extends shapes
+{
+	double getSurface();
+	double getVolume();
+}
+class box extends threeD
+{
+	double height,width,length;
+	System.out.println("surface = " + (2*(height*width + width*length + length*height)));
+	System.out.println("volume = " + height*width*length);
+}
+class cone extends threeD
+{
+	double radius,height;
+	double pi = 3.14159;
+	System.out.println("surface = " + (2*pi*radius(radius+height)));
+	System.out.println("volume = " + ((pi*radius*radius*height)/3));
+}
+class cylinder extends threeD
+{
+	double radius,height;
+	double pi = 3.14159;
+	System.out.println("surface = " + (2*pi*radius(radius+height)));
+	System.out.println("volume = " + (pi*radius*radius*height));
+}
+class sphere extends threeD
+{
+	double radius;
+	double pi = 3.14159;
+	System.out.println("surface = " + (4*pi*radius*radius));
+	System.out.println("volume = " + ((4*pi*radius*radius*radius)/3));
+}
+public static void main(String args[])
+{
+	shape s1 = new rectangle(3,5);
+	System.out.println(s1);
+}
 
-.................................................................................................................
+................................................................................
 
-<?php 	
-		
-		$con =mysqli_connect("localhost","root","","fuck");
+// Publication class with title and price
+class Publication {
+  String title;
+  double price;
+  
+  public void getData() {
+    // Get input for title and price
+  }
+  
+  public void print() {
+    System.out.println("Title: " + title);
+    System.out.println("Price: " + price);
+  }
+}
 
-		if($con){
-				echo "Connection success<br>";
-		}
-		else{
-			echo "error";
-		}
+// Book interface with accession number
+interface Book {
+  int accessionNumber = 540; // default value
+  
+  default void print() {
+    System.out.println("Accession number: " + accessionNumber);
+  }
+}
 
-		if(isset($_POST['log'])){
-			$email = $_POST['email'];
-			$password = $_POST['pass'];
-			/*echo $email." ".$password;*/
-			$query="Insert into register(email,password) values('$email','$password')";
+// Magazine interface with volume number
+interface Magazine {
+  int volumeNumber = 5; // default value
+  
+  default void print() {
+    System.out.println("Volume number: " + volumeNumber);
+  }
+}
 
-			$result=mysqli_query($con,$query);
+// Journal class that implements Book and Magazine
+class Journal extends Publication implements Book, Magazine {
+  int accessionNumber;
+  int volumeNumber;
+  
+  public void getData() {
+    super.getData(); // Get title and price from Publication
+    // Get input for accession number and volume number
+  }
+  
+  public void print() {
+    super.print(); // Print title and price from Publication
+    Book.super.print(); // Print accession number from Book
+    Magazine.super.print(); // Print volume number from Magazine
+    System.out.println(); // Print empty line for spacing
+  }
+}
 
-			if($result){
-				echo "registration success";
-			}
-			else{
-				echo "error while registration";
-			}
-		}
-?>
+// Example usage in main method
+public class multi
+{
+public static void main(String[] args) {
+  Journal journal = new Journal();
+  journal.getData();
+  journal.print();
+}
+}
 
-......................................................................
 
-ID card infomation
+.......................................................................
 
-<h3>Srilankan ID Card Detail Suplier</h3>
-        <form action="index.php" method="post">
-            <label for="">enter your id number :</label>
-            <input class = "box"type="text" name="id_no"><br>
-            <input class ="btn" type="submit">
-        </form> 
 
-            <?php 
-        if(isset($_POST["id_no"])){
-            
-            $id_num = $_POST["id_no"];
-            if(strlen($id_num) == 12){
-                new_sys($id_num);
-            }
-            else if (strlen($id_num) == 10){
-                old_sys($id_num);
-            }
-            else{
-                echo "<h4>you enterd invalid number<h4>";
-            }
-            
-        }
+import java.util.Arrays;
 
-        function new_sys($id_num){
-            $year = substr($id_num,0,4);
-            $key = substr($id_num,4,3);
-
-            echo "year :".$year;
-            gender($key);
-            b_day($key);
-            
-        }
-
-        function old_sys($id_num){
-            $year = "year : 19".substr($id_num,0,2);
-            $key = substr($id_num,2,3);
-
-            echo $year;
-            gender($key);
-            b_day($key);
+class Main {
+    
+    static class Object {
+        int val;
+        int index;
+    }
+    
+    static int[] twoSum(int[] nums, int target) {
+        int numsSize = nums.length;
+        Object[] objects = new Object[numsSize];
+        
+        for (int i = 0; i < numsSize; i++) {
+            Object obj = new Object();
+            obj.val = nums[i];
+            obj.index = i;
+            objects[i] = obj;
         }
         
-        function gender($key){
-            if($key <= 500){
-                return true;
+        Arrays.sort(objects, (a, b) -> a.val - b.val);
+        
+        int[] results = new int[2];
+        int i = 0;
+        int j = numsSize - 1;
+        
+        while (i < j) {
+            int diff = target - objects[i].val;
+            if (diff > objects[j].val) {
+                while (++i < j && objects[i].val == objects[i - 1].val) {}
+            } else if (diff < objects[j].val) {
+                while (--j > i && objects[j].val == objects[j + 1].val) {}
+            } else {
+                results[0] = objects[i].index;
+                results[1] = objects[j].index;
+                return results;
             }
-            else{
+        }
+        
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        int[] nums = { 4, 2, 1, 5 };
+        int ctr = nums.length;
+        int target = 7;
+        
+        System.out.print("Original Array: ");
+        for (int i = 0; i < ctr; i++) {
+            System.out.print(nums[i] + " ");
+        }
+        
+        System.out.println("\nTarget Value: " + target);
+        
+        int[] indexes = twoSum(nums, target);
+        
+        if (indexes != null) {
+            System.out.println("Indices of the two numbers whose sum equal to target value: " + target);
+            System.out.println(indexes[0] + " " + indexes[1]);
+        } else {
+            System.out.println("Not found or matched");
+        }
+    }
+}
+
+
+...........................................................................................................
+
+public class Prime {
+    public static void main(String[] args) {
+        System.out.println(isPrime(17) ? "true" : "false");
+    }
+
+    public static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
                 return false;
             }
-
         }
-        
-        function findFirstNearestSmallerNumber($arr, $target) {
-            $nearestNumber = null;
-        
-        
-            for ($i = 0; $i < count($arr); $i++) {
-                if ($arr[$i] < $target) {
-                    $nearestNumber = $i;
-                } else {
-                    $months=$i;
+
+        return true;
+    }
+}
+
+
+.............................................................................................................
+
+public class Main {
+    public static void main(String[] args) {
+        int[] array = { 4, 2, 1, 5 };
+        int target = 7;
+
+        for (int i = 0; i < array.length; i++) {
+            int difference = target - array[i];
+
+            for (int j = i; j < array.length; j++) {
+                if (array[j] == difference) {
+                    System.out.println(i + ", " + j);
                     break;
                 }
             }
-        
-            return $nearestNumber;
-            
-            
         }
+    }
+}
 
-        function b_day($key){
-            $sumday =  array(31,60,91,121,152,182,213,244,274,305,335,366);
-            if(gender($key)== true){
-                $n_day = $sumday[findFirstNearestSmallerNumber($sumday,intval($key))];
-                $birth_day =$key - $n_day;
-                
-                echo "<br>";
-                echo "Gender : male";
-                echo "<br>";
-                echo "Birthday : $birth_day";
 
-                months(findFirstNearestSmallerNumber($sumday,intval($key)));
-            }
-            else{
-                $g_day = intval($key)-500;
-                $n_day = $sumday[findFirstNearestSmallerNumber($sumday,$g_day)];
-                $birth_day = $g_day - $n_day;
+..................................................................................................................
 
-                echo "<br>";
-                echo "Gender : female";
-                echo "<br>";
-                echo "Birthday : $birth_day";
+// Publication class
+class Publication {
+    protected String title;
+    protected double price;
 
-                months(findFirstNearestSmallerNumber($sumday,$g_day));
-            }
+    public void getData(String title, double price) {
+        this.title = title;
+        this.price = price;
+    }
+
+    public void print() {
+        System.out.println("Title: " + title);
+        System.out.println("Price: $" + price);
+    }
+}
+
+// Book interface
+interface Book {
+    int accessionNumber = 0;
+
+    default void getData(String title, double price, int accessionNumber) {
+        Publication.super.getData(title, price);
+        this.accessionNumber = accessionNumber;
+    }
+
+    default void print() {
+        Publication.super.print();
+        System.out.println("Accession Number: " + accessionNumber);
+    }
+}
+
+// Magazine interface
+interface Magazine {
+    int volumeNumber = 0;
+
+    default void getData(String title, double price, int volumeNumber) {
+        Publication.super.getData(title, price);
+        this.volumeNumber = volumeNumber;
+    }
+
+    default void print() {
+        Publication.super.print();
+        System.out.println("Volume Number: " + volumeNumber);
+    }
+}
+
+// Journal class
+class Journal {
+    private String name;
+
+    public void print() {
+        System.out.println("Journal Name: " + name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Journal[] journals = new Journal[5];
+
+        for (int i = 0; i < 5; i++) {
+            journals[i] = new Journal();
+            journals[i].print();
         }
-        
-        function months($index){
-            $index+=1;
-
-            $mo_en = array ("January","February","March","April","May","June","July","August","September","October","November","December");
-
-            echo "<br>";
-            echo "month  : $mo_en[$index]";
-        }
-        
-        
-        ?>
-    </div>
-
-
-.......................................................................................................
-
-Form validation
-
-<?php
-// define variables and set to empty values
-$nameErr = $emailErr = $genderErr = $websiteErr = "";
-$name = $email = $gender = $comment = $website = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
-  } else {
-    $name = test_input($_POST["name"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-      $nameErr = "Only letters and white space allowed";
     }
-  }
-  
-  if (empty($_POST["email"])) {
-    $emailErr = "Email is required";
-  } else {
-    $email = test_input($_POST["email"]);
-    // check if e-mail address is well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErr = "Invalid email format";
-    }
-  }
-    
-  if (empty($_POST["website"])) {
-    $website = "";
-  } else {
-    $website = test_input($_POST["website"]);
-    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
-    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
-      $websiteErr = "Invalid URL";
-    }
-  }
-
-  if (empty($_POST["comment"])) {
-    $comment = "";
-  } else {
-    $comment = test_input($_POST["comment"]);
-  }
-
-  if (empty($_POST["gender"])) {
-    $genderErr = "Gender is required";
-  } else {
-    $gender = test_input($_POST["gender"]);
-  }
 }
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-?>
-
-
-............................................................................................................
-
-
-
-<!DOCTYPE HTML>  
-<html>
-<head>
-<style>
-.error {color: #FF0000;}
-</style>
-</head>
-<body>  
-
-<?php
-// define variables and set to empty values
-$nameQ = $emailQ = $genderQ = $websiteQ = "";
-$name = $email = $gender = $comment = $website = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["name"])) {
-    $nameQ = "Name is required";
-  } else {
-    $name = test_input($_POST["name"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-      $nameQ = "Only letters and white space allowed";
-    }
-  }
-  
-  if (empty($_POST["email"])) {
-    $emailQ = "Email is required";
-  } else {
-    $email = test_input($_POST["email"]);
-    // check if e-mail address is well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailQ = "Invalid email format";
-    }
-  }
-    
-  if (empty($_POST["website"])) {
-    $website = "";
-  } else {
-    $website = test_input($_POST["website"]);
-    // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
-    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=_|!:,.;]*[-a-z0-9+&@#\/%=_|]/i",$website)) {
-      $websiteQ = "Invalid URL";
-    }
-  }
-
-  if (empty($_POST["comment"])) {
-    $comment = "";
-  } else {
-    $comment = test_input($_POST["comment"]);
-  }
-
-  if (empty($_POST["gender"])) {
-    $genderQ = "Gender is required";
-  } else {
-    $gender = test_input($_POST["gender"]);
-  }
-}
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-?>
-
-<h2>PHP Form Validation Example</h2>
-<p><span class="error">* required field</span></p>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="name" value="<?php echo $name;?>">
-  <span class="error">* <?php echo $nameQ;?></span>
-  <br><br>
-  E-mail: <input type="text" name="email" value="<?php echo $email;?>">
-  <span class="error">* <?php echo $emailQ;?></span>
-  <br><br>
-  Website: <input type="text" name="website" value="<?php echo $website;?>">
-  <span class="error"><?php echo $websiteQ;?></span>
-  <br><br>
-  Comment: <textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea>
-  <br><br>
-  Gender:
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
-  <input type="radio" name="gender" <?php if (isset($gender) && $gender=="other") echo "checked";?> value="other">Other  
-  <span class="error">* <?php echo $genderQ;?></span>
-  <br><br>
-  <input type="submit" name="submit" value="Submit">  
-</form>
-</body>
-</html>
