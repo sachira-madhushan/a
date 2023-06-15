@@ -1,4 +1,4 @@
-[19:45, 15/06/2023] Shehara Trinco Cs: abstract class shape
+abstract class shape
 {
 	public shape(double base);
 	this.base = base;
