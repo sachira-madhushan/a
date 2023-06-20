@@ -471,3 +471,97 @@ public class RoundRobin {
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    1  ls
+    2  cd iroshan
+    3  cd ..
+    4  mkdir darshana
+    5  ls
+    6  ls -a
+    7  ls -l
+    8  pwd
+    9  ls
+   10  touch myfile.html
+   11  ls
+   12  touch myfile1.txt
+   13  ls
+   14  rm name
+   15  ls
+   16  rmdir iroshan
+   17  ls
+   18  cd darshana
+   19  ls
+   20  touch myfile1.txt
+   21  ls
+   22  cd ..
+   23  rmdir darshana
+   24  rmdir -r darshana
+   25  rmdir -p darshana
+   26  man rmdir
+   27  rmdir -p darshana
+   28  rmdir -r darshana
+   29  rm -r darshana
+   30  ls
+   31  echo "Sachira Madhushan" > myfile
+   32  ls
+   33  cat myfile
+   34  head myfile
+   35  head -n 5 myfile
+   36  man head
+   37  head -c 5 myfile
+   38  nano myfile
+   39  man cd
+   40  man mkdir
+   41  mkdir --help
+   42  help
+   43  yelp
+   44  man
+   45  man man
+   46  ls
+   47  mkdir vidura
+   48  ls
+   49  cp myfile vidura
+   50  cd vidura
+   51  ls
+   52  cp ../myfile.html ./
+   53  ls
+   54  cd ../../
+   55  zip -r 19COM307.zip 19COM307
+   56  ls
+   57  ls -l
+   58  cd 19COM307
+   59  ls
+   60  cd ..
+   61  cd 19COM307/vidura
+   62  cd ..
+   63  ls
+   64  mv myfile iroshan
+   65  ls
+   66  mv iroshan vidura
+   67  ls
+   68  cd vidura
+   69  ls
+   70  ls -l
+   71  chmod 777 iroshan
+   72  ls -l
+   73  chmod 444 iroshan
+   74  ls -l
+   75  chmod 000 iroshan
+   76  chmod 777 iroshan
+   77  chmod 644 iroshan
+   78  ls -l
+   79  chmod u+rwx iroshan
+   80  ls -l
+   81  chmod ugo+rwx iroshan
+   82  ls -l
+   83  chmod g-rwx iroshan
+   84  ls -l
+   85  clear
+   86  sudo adduser iroshan
+   87  sudo userdel iroshan
+   88  wget -O file.txt https://shorturl.at/joMY7
+   89  history
+   90  clear
+   91  history -c
+
