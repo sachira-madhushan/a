@@ -936,3 +936,361 @@ return 0;
 
 
 -----------------------------------------------------------------------------------------------------------------------------------
+
+
+uname Displays Linux system information
+uname -r Displays kernel release information
+uptime Displays how long the system has been running including load average
+hostname Shows the system hostname
+hostname -i Displays the IP address of the system
+last reboot Shows system reboot history
+date Displays current system date and time
+timedatectl Query and change the System clock
+cal Displays the current calendar month and day
+w Displays currently logged in users in the system
+whoami Displays who you are logged in as
+finger username Displays information about the user
+2. Hardware Based Commands
+dmesg Displays bootup messages
+cat /proc/cpuinfo Displays more information about CPU e.g model, model name, 
+cores, vendor id
+cat /proc/meminfo Displays more information about hardware memory e.g. Total 
+and Free memory
+lshw Displays information about system's hardware configuration
+lsblk Displays block devices related information
+free -m
+Displays free and used memory in the system (-m flag indicates 
+memory in MB)
+lspci -tv Displays PCI devices in a tree-like diagram
+lsusb -tv Displays USB devices in a tree-like diagram
+dmidecode Displays hardware information from the BIOS
+hdparm -i /dev/xda Displays information about disk data
+hdparm -tT /dev/xda <:code> Conducts a read speed test on device xda
+badblocks -s /dev/xda Tests for unreadable blocks on disk
+3. Users Management Commands
+id Displays the details of the active user e.g. uid, gid, and groups
+last Shows the last logins in the system
+who Shows who is logged in to the system
+groupadd "admin" Adds the group 'admin'
+adduser "Sam" Adds user Sam
+userdel "Sam" Deletes user Sam
+usermod Used for changing / modifying user information
+
+Q2
+
+object -> character 
+character->digit,letter / letter->vowel,consonant
+1. Display your current directory.
+2. Change the directory to Object directory.
+3. Create a new directory called Integer within your current working directory (Object).
+4. List all the directories in Object.
+5. Rename Integer to NewInteger.
+6. Create a file called testl.txt under the Vowel directory.
+7. Create a file called test2.txt under the Digit directory.
+8. Rename testl.txt to vowel.txt and add the letters. "a, e, i, o, u" in that file.
+9. Change the access permission for vowel.txt to read only.
+10. Copy vowel.txt from Vowel directory to Consonant directory.
+11. Change the access permission for vowel.txt from read only to read and write.
+12. Rename vowel.txt to consonant txt and add the consonant letters in that file.
+13. Count number of lines in consonant.txt
+
+Q2
+mkdir object
+cd object
+mkdir Character
+cd Character
+mkdir Digit Letter
+cd Letter
+mkdir Vowel Consonant
+
+1. pwd
+2. cd .. 
+	cd ..
+3. mkdir Integer
+4. ls
+5. mv Integer NewInteger
+6. cd Character/Letter/Vowel
+7. touch test1.txt	
+	cd ..
+	cd ..
+	cd Digit
+	touch test2.txt
+8. touch test1.txt
+cd ..
+cd Letter/Vowel
+mv test1.txt vowel.txt
+echo a,e,i,o,u >> vowel.txt
+9. 
+
+Q3.
+ Write suitable Linux commands to perform the following tasks. Create a text, file named 
+as "Q3_command.txt" and save all the answers using snapshots.
+1. Create a folder called "csc_docs" in /home/.
+2. Create folders "doc1","doc2" and "doc3" inside the folder "csc-docs".
+3. Create a file called "myfirstfile.txt" in the folder "doc1".
+4. Create a file called "mysecondfile.txt" in the "doc2".
+5. Add your personal details (Registration no, name, date of birth and address) to
+6. the file "myfirstfile.txt".
+7. Copy the contents of the file from "myfirstfile.txt" to "mythirdfile.txt" inside the 
+folder "csc_docs/doc3/".
+8. Add your contact details (Tel no, Email) to the "mysecondfile.txt".
+9. Append the content of the "myfirstfile.txt" to "mysecondfile.txt".
+10. Cut and paste the contents of "myfirstfile.txt" from the current directory to
+"home/mylocal/src/doc_folder/".
+11. Cut and paste the "myseondfile.txt" and "mythirdfile.txt" from the current directory 
+to "home/mylocal/doc/folder".
+12. Show the folder hierarchy of "/home" in a tree structure.
+13. Give execution permission to "myfirstfile.txt".
+14. Remove permission to write for the "mysecondfile.txt".
+15. Add permission to write only to the owner and the group for the "mythirdfile.txt".
+16. Restrict all permission to any user for the folder "home/mylocal/doc-folder".
+17. Do not give permission to any other user to edit or execute files in the folder "csc_docs".
+
+Q3 answers
+Q3
+1) mkdir csc_docs
+2) cd csc_docs
+	mkdir doc1
+	mkdir doc2
+	mkdir doc3
+3) cd doc1
+	touch myfirstfile.txt
+4) cd ..
+	cd doc2
+	touch mysecondfile.txt
+5) cd ..
+	cd doc1
+	echo EUSL/TC/IS/2019/COM/21 Sehara Kulasinghe 2000.11.03 No.622/A,Yakkaduwa,Jaela >>myfirstfile.txt
+6) cp myfirstfile.txt ~/csc_docs/doc3/mythirdfile.txt
+8) cd ..
+	cd doc2
+	echo 0112537856 sehkaya@gmail.com
+9) cat myfirstfile.txt mysecondfile.txt>> mysecondfile.txt
+10)mv myfirstfile.txt /home/mylocal/src/doc_folder/ cut -f myfirstfile.txt /home/mylocal/src/doc_folder/
+11)mv mysecondfile.txt mythirdfile.txt /home/mylocal/doc/folder/ cut -f mysecond file.txt mythirdfile.txt /home/mylocal/doc/folder/
+12)tree /home
+13)chmod +x myfirstfile.txt
+14)chmod -w mysecondfile.txt
+15)chmod ug+w mythirdfile.txt
+16)chmod -Ro-rwx /home/mylocal/doc-folder 17.chmod Ro-rwx, g-rwx /home/csc_docs
+
+Q4
+root->products, services
+product-> computers,printers
+services->repair, installation
+1. Rename the "products" folder as "MyPractical".
+2. Create two text files like as "MyFirstFile.txt" and "MySecondFile.txt" inside the
+3. "MyPractical" directory.
+4. Rename those files like as "FirstFile.txt" and "SecondFile.txt".
+5. Insert the sentence in your my "FirstFile.txt" file as "I'm following Introduction to
+OS in Trincomalee Campus, Eastern University, Sri Lanka.".
+6. Insert your personal details (Registration no, name, date of birth and address) to the file 
+"SecondFile.txt".
+7. Copy "Firstfile.txt" to inside the "Repair" folder.
+8. Move the file "SecondFile.txt" to inside "Repair" folder.
+9. Append the content of the "firstfile.txt" to "secondfile.txt" inside "Repair" folder.
+10. Zip/Compress the file from "MyPractical" folder.
+11. Delete the "Installation" folder
+
+Q4 answers
+Q4
+1. mkdir Root
+cd Root
+mkdir Products Services
+cd Products
+mkdir Computers Printers
+cd ..
+cd Services
+mkdir Repair Installation
+cd ..
+
+1. mv Products MyPractical
+
+2. cd MyPractical
+cat > MyFirstFile.txt > MySecondFile.txt
+
+4. mv MyFirstFile.txt FirstFile.txt
+mv MySecondFile.txt SecondFile.txt
+
+5. cat > FirstFile.txt
+I'm following Introduction to OS in Trincomalee Campus, Eastern University, Sri Lanka.
+
+6. cat > SecondFile.txt
+EUSL/TC/IS/2019/COM/21
+Sehara Kulasinghe
+2000.11.03
+No.622/A, Yakkaduwa,Jaela
+7. cp FirstFile.txt ~/Root/Services/Repair/
+
+8. mv SecondFiled.txt ~/Root/Services/Repair/
+
+9. cat FirstFile.txt SecondFiled.txt >> SecondFiled.txt
+
+10. zip MyPractical.zip MyPractical
+
+11. rm -r /Root/Services/Installation
+
+Wildcards are handy to know when you want to find or work on files that have a specific 
+sequence of characters or when you are searching to find a file and are not certain of the correct 
+spelling of that file name. You will use the * and ? Wildcard with the ls command.
+To work with wildcards:
+1. To practice using wildcards, you first must care a set of files with similar names. 
+a. first_name: create a file containing your first name
+b. middle_name: create a file containing your middle name
+c. last_name: create a file containing your last name
+d. full_name1.txt: create a file containing your full name. (Don’t type the full name. Get 
+the full name from a) and b) through a command.)
+e. full_name2.txt: another file containing your full name.
+2. Type ls *name and press Enter. Write down files you see and explain why:
+……………………………………………………………………………………………..
+……………………………………………………………………………………………..
+3. Type ls full_name?.txt and press Enter. Write down your observation and explain why:
+……………………………………………………………………………………………..
+……………………………………………………………………………………………..
+4. Type ls *.txt and press Enter. Write down your observation and explain why:
+
+answers
+Task 1
+
+1. a.echo "Sehara" > first_name
+b. echo "Dilrangi" > middle_name
+c. echo "Kulasinghe" > last_name
+d. cat first_name middle_name last_name >full_name.txt
+e. cp full_name.txt full_name2.txt
+
+
+
+2. ls *name
+first_name  last_name  middle_name
+
+3.
+ls full_name?.txt
+full_name2.txt
+
+
+4.
+full_name2.txt  full_name.txt
+because all are text files.
+
+user administration
+Exercise 01
+1. Create two additional user accounts "tux1" and "tux2". Give these users a password so that 
+you can login as these users. Verify the user accounts have been created.
+2. Look at the various files that store user information (/etc/passwd, /etc/shadow, /etc/group, 
+/etc/gshadow) to view the user accounts you just created. Also look at the home directory 
+of these new users, the contents of the home directory, and compare this to the contents of 
+/etc/skel.
+3. In a different terminal window, try to logon as tux1 and tux2. Does this work?
+4. Lock the tux1 user account.
+5. In a different terminal window, try to logon as tux1. Does this work?
+6. Unlock the tux1 user account.
+7. Modify the password aging parameters for tux1 so that next time tux1 logs on, he is forced 
+to reset his passwd.
+8. Once again, in a different terminal, logon as tux1. Does this work? Were you asked to 
+change your password?
+9. Create an additional group "penguins". Make the users "tux1" and "tux2" member of this 
+group.
+10. Look at the various files that store user information to view how this secondary group is 
+administered.
+11. Create a team directory, /home/penguin. Set the appropriate permissions on this team 
+directory, so that tux1 and tux2 can work together on a project in this directory.
+12. Login as tux1 and tux2, and verify that you can indeed use this directory to share 
+documents. Also, can you delete each other’s documents? How would you prevent this?
+13. Look at the password aging information for tux1.
+14. Look how many days it's been since January 1st, 1970. You will need this number in the 
+next steps, so store this in a variable "today"
+15. Change the last change date of the password of tux1 to 31 days ago.
+16. Set the maximum number of days between password changes to 30 days.
+17. Look at the password aging information for tux1 again.
+18. Logout and login as tux1. Do you need to change the password? If so, do so otherwise the 
+next exercises will fail.
+19. Logout and login as tux1 again. Do you need to change the password now?
+20. Logout and login as root. Look at the password aging information for tux1.
+
+answers
+Exercise 01
+1)
+sudo adduser tux1 sudo adduser tux2 sudo cat /etc/passwd su - tux1
+Su -tux2
+
+2)
+more /etc/passwd && sudo more /etc/shadow && more /etc/group && sudo more /etc/gshadow
+ls -a /etc/skel
+
+3)
+Yes
+su - tux1 su - tux2
+
+4)
+sudo passwd -l tux1
+
+5)
+It doesn’t work.
+Su – tux1c
+
+6)
+sudo passwd -u tux1
+
+7)
+sudo chage -d 0 tux1
+
+8)
+Yes
+
+9)
+sudo groupadd penguins
+sudo usermod -a -G penguins tux1 sudo usermod -a -G penguins tux2
+
+10)
+more /etc/group && sudo more /etc/gshadow 
+11)
+sudo mkdir /home/penguin
+sudo chown tux1:penguins /home/penguin sudo chmod 770 /home/penguin
+
+12)
+Yes
+chmod 700 /home/penguin/test.txt
+chmod 700 /home/penguin/test2.txt
+
+13)
+sudo chage -l tux1
+
+14)
+   export TIME=$(($(($(date +%s)-$(date +%s --date "1970-01-01")))/(3600*24)))
+
+15)
+sudo chage -d $(date -d "31 days ago" +%Y-%m-%d) tux1
+
+16)
+sudo chage -M 30 tux1
+
+17)
+sudo chage -l tux1
+
+18)
+Yes need to change password.
+pkill -KILL -u tux1
+su – tux1
+
+19)
+No it doesn’t.
+pkill -KILL -u tux1
+su – tux1
+
+20)
+sudo chage -l tux1
+
+c program
+checking c is installed or not = gcc --version
+writing on c program = nano first.c
+#include <stdio.h>
+int main()
+{
+	//printf() display quatation
+	printf("hello world");
+	return 0;
+}
+compile = gcc first.c -o first
+run = ./first
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
