@@ -828,3 +828,94 @@ public class RoundRobinScheduling {
 
 
 ------------------------------------------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+create a c file
+	nano basic.c
+	type codes
+	ctrl+o
+	ctrl+x
+	
+compile
+	gcc basic.c -o basic
+	
+run
+	./basic
+	
+Show what are in file
+	cat filename.c	
+
+To print 
+#include<stdio.h>
+	printf("");
+	
+	
+	
+Write function
+	
+man 2 write
+	
+#include<unistd.h>
+int main(){
+	write(1,"Hello world", 11);
+}
+
+
+Read function
+
+man 2 read
+
+#include<unistd.h>
+int main(){
+	char b[30];
+	read(0,b,11);
+	write(1,b, 11);
+}
+
+
+
+
+
+Open function
+
+man 2 open
+
+#include<unistd.h>
+#include<fcntl.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+
+int main(){ 
+        int n, fd, fd1;
+        char b[50];
+		
+		fd = open("doc/test.txt",O_RDONLY);
+        n = read(fd,b,50);
+		fd1 = open("target.txt",O_CREAT|O_WRONLY,0642);
+        write(fd1,b,10);
+}
+
+
+
+
+
+fork functioon                                     
+
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+
+int main(){
+
+        fork();
+        printf("Hello world\n");
+
+return 0;
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
