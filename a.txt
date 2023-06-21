@@ -565,6 +565,23 @@ public class RoundRobin {
    90  clear
    91  history -c
 
+user kenek aluthin add karanna = sudo adduser uname
+hadapu ekata pass word ekak add karanna = sudo passwd uname
+sudo groupadd gname
+aluthin user kenek add karanna group ekata = sudo usermod -aG gname uname
+user group eken remove karanna = sudo gpasswd -d gname uname
+user ge primary group eka wenas karanna = sudo usermod -g newgname uname
+sudo groupdel gname
+sudo userdel uname
+
+user balanna = cat /etc/passwd
+group blnn = cat /etc/group
+group password = sudo cat /etc/gshadow
+user ge okkoma detail balanna = id uname
+
+gcc -o nameaftercompile filename.c
+./nameaftercompile
+
 
 
 
