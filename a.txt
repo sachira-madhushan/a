@@ -1,1076 +1,330 @@
-Write suitable Java code to merge two sorted linked lists (11, 12) and return it as a new sorted list. 
-The new list should be made by splicing together the nodes of the first two lists. 
-Save the answer in the name of "Q1.java". 
-The following constraints can be presumed: 
-1. The number of nodes in both lists is in the range [0, 30]. 
-2. -20 < = Node value ≤ 20 
-3. Both 11 and 12 are sorted in non-decreasing order. 
-Example: Input: Ia= [1,2,4], Ib = [1,3,4] Output : [1,1,2,3,4,4]
-
-// Q1.java
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-        this.next = null;
-    }
-}
-
-public class Q1 {
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
-                current.next = l1;
-                l1 = l1.next;
-            } else {
-                current.next = l2;
-                l2 = l2.next;
-            }
-            current = current.next;
-        }
-
-        if (l1 != null) {
-            current.next = l1;
-        } else {
-            current.next = l2;
-        }
-
-        return dummy.next;
-    }
-
-    public static void main(String[] args) {
-        ListNode l1 = new ListNode(1);
-        l1.next = new ListNode(2);
-        l1.next.next = new ListNode(4);
-
-        ListNode l2 = new ListNode(1);
-        l2.next = new ListNode(3);
-        l2.next.next = new ListNode(4);
-
-        ListNode mergedList = mergeTwoLists(l1, l2);
-
-        // Print the merged list
-        while (mergedList != null) {
-            System.out.print(mergedList.val + " ");
-            mergedList = mergedList.next;
-        }
-    }
-}
-
---------------------------------------------------------------------------------------------------
-
-//doubly linked list
-
-Write a Java code to implement the following operations in "Doubly Linked List" and save it as "Q2.java".
-
-i. Delete a node at the front of a list
-
-ii. Delete a node at the end of a list
-
-iii. Delete a node before a given node of a list
-
-iv. Delete a node after a given node of a list
-
-
-/// Q2.java
-
-class Node {
-    int data;
-    Node prev;
-    Node next;
-
-    Node(int data) {
-        this.data = data;
-        this.prev = null;
-        this.next = null;
-    }
-}
-
-class DoublyLinkedList {
-    private Node head;
-    private Node tail;
-
-    DoublyLinkedList() {
-        this.head = null;
-        this.tail = null;
-    }
-
-    // Insert a node at the front of the list
-    public void insertAtFront(int data) {
-        Node newNode = new Node(data);
-
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode.next = head;
-            head.prev = newNode;
-            head = newNode;
-        }
-    }
-
-    // Insert a node at the end of the list
-    public void insertAtEnd(int data) {
-        Node newNode = new Node(data);
-
-        if (tail == null) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode.prev = tail;
-            tail.next = newNode;
-            tail = newNode;
-        }
-    }
-
-    // Delete a node at the front of the list
-    public void deleteAtFront() {
-        if (head == null) {
-            System.out.println("List is empty. Nothing to delete.");
-            return;
-        }
-
-        if (head == tail) {
-            head = null;
-            tail = null;
-        } else {
-            head = head.next;
-            head.prev = null;
-        }
-    }
-
-    // Delete a node at the end of the list
-    public void deleteAtEnd() {
-        if (tail == null) {
-            System.out.println("List is empty. Nothing to delete.");
-            return;
-        }
-
-        if (head == tail) {
-            head = null;
-            tail = null;
-        } else {
-            tail = tail.prev;
-            tail.next = null;
-        }
-    }
-
-    // Delete a node before a given node of the list
-    public void deleteBefore(Node node) {
-        if (node == null || node.prev == null) {
-            System.out.println("Cannot delete. Invalid node or node has no previous node.");
-            return;
-        }
-
-        Node prevNode = node.prev;
-
-        if (prevNode == head) {
-            deleteAtFront();
-        } else {
-            prevNode.prev.next = node;
-            node.prev = prevNode.prev;
-        }
-    }
-
-    // Delete a node after a given node of the list
-    public void deleteAfter(Node node) {
-        if (node == null || node.next == null) {
-            System.out.println("Cannot delete. Invalid node or node has no next node.");
-            return;
-        }
-
-        Node nextNode = node.next;
-
-        if (nextNode == tail) {
-            deleteAtEnd();
-        } else {
-            node.next = nextNode.next;
-            nextNode.next.prev = node;
-        }
-    }
-
-    // Display the contents of the list
-    public void display() {
-        Node current = head;
-
-        if (current == null) {
-            System.out.println("List is empty.");
-            return;
-        }
-
-        System.out.print("List: ");
-
-        while (current != null) {
-            System.out.print(current.data + " ");
-            current = current.next;
-        }
-
-        System.out.println();
-    }
-}
-
-public class Q2 {
-    public static void main(String[] args) {
-        DoublyLinkedList dll = new DoublyLinkedList();
-
-        dll.insertAtEnd(10);
-        dll.insertAtEnd(20);
-        dll.insertAtEnd(30);
-        dll.insertAtFront(5);
-        dll.insertAtFront(2);
-        dll.insertAtEnd(40);
-        dll.insertAtEnd(50);
-
-        dll.display(); // List: 2 5 10 20 30 40 50
-
-        dll.deleteAtFront();
-        dll.display(); // List: 5 10 20 30 40 50
-
-        dll.deleteAtEnd();
-        dll.display(); // List: 5 10 20 30 40
-
-        Node node = dll.head.next.next; // Node with value 20
-        dll.deleteBefore(node);
-        dll.display(); // List: 5 20 30 40
-
-        node = dll.tail.prev.prev; // Node with value 30
-        dll.deleteAfter(node);
-        dll.display(); // List: 5 20 30
-
-        node = dll.head.next; // Node with value 20
-        dll.deleteAfter(node);
-        dll.display(); // List: 5 20
-
-        dll.deleteAtFront();
-        dll.display(); // List: 20
-
-        dll.deleteAtEnd();
-        dll.display(); // List is empty.
-    }
-}
-
-------------------------------------------------------------------------------------------------------
-Implement the followings using Java.
-
-a). Create a class called Link to hold the following data items and save it as "Q3a".
-Name: Link
-Student Name: sname as string type
-Student Id: sid string type
-Course Name: cid string type
-Course Fee: cfee double
-Reference to node: next
-
-b). Create a constructor for the above class to initialize the items and save it as "Q3b"
-
-// Q3a.java
-
-class Link {
-    String sname;
-    String sid;
-    String cid;
-    double cfee;
-    Link next;
-}
-
-// Q3b.java
-
-class Link {
-    String sname;
-    String sid;
-    String cid;
-    double cfee;
-    Link next;
-
-    Link(String sname, String sid, String cid, double cfee) {
-        this.sname = sname;
-        this.sid = sid;
-        this.cid = cid;
-        this.cfee = cfee;
-        this.next = null;
-    }
-}
--------------------------------------------------------------------------------------------------------------
-
-Use the class in "Q3" to do the following linked list operations.
-a). Write a method to insert at least five records at the front of the linked list save it as "Q4a".
-b). Write a method to search a record for a given Student Id save it as "Q4b".
-c). Write a method to delete a record by the search using Student Id
-
-// Q4a.java
-
-class LinkedList {
-    Link head;
-
-    public void insertAtFront(String sname, String sid, String cid, double cfee) {
-        Link newLink = new Link(sname, sid, cid, cfee);
-
-        if (head == null) {
-            head = newLink;
-        } else {
-            newLink.next = head;
-            head = newLink;
-        }
-    }
-}
-
-public class Q4a {
-    public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
-
-        // Insert at least five records at the front of the linked list
-        linkedList.insertAtFront("John Doe", "001", "Mathematics", 500.0);
-        linkedList.insertAtFront("Jane Smith", "002", "Physics", 600.0);
-        linkedList.insertAtFront("Alice Johnson", "003", "Chemistry", 700.0);
-        linkedList.insertAtFront("Bob Williams", "004", "Biology", 800.0);
-        linkedList.insertAtFront("Eva Davis", "005", "English", 900.0);
-    }
-}
-
-// Q4b.java
-
-class LinkedList {
-    Link head;
-
-    // ... insertAtFront method
-
-    public Link searchRecord(String sid) {
-        Link current = head;
-
-        while (current != null) {
-            if (current.sid.equals(sid)) {
-                return current;
-            }
-            current = current.next;
-        }
-
-        return null; // Record not found
-    }
-}
-
-public class Q4b {
-    public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
-
-        // ... insertAtFront method
-
-        // Search for a record with Student ID "003"
-        Link foundRecord = linkedList.searchRecord("003");
-
-        if (foundRecord != null) {
-            System.out.println("Record found: " + foundRecord.sname);
-        } else {
-            System.out.println("Record not found.");
-        }
-    }
-}
-
-// Q4c.java
-
-class LinkedList {
-    Link head;
-
-    // ... insertAtFront method
-    // ... searchRecord method
-
-    public void deleteRecord(String sid) {
-        Link current = head;
-        Link prev = null;
-
-        // If the record to be deleted is the head node
-        if (current != null && current.sid.equals(sid)) {
-            head = current.next;
-            return;
-        }
-
-        // Search for the record to be deleted
-        while (current != null && !current.sid.equals(sid)) {
-            prev = current;
-            current = current.next;
-        }
-
-        // If the record is found, delete it
-        if (current != null) {
-            prev.next = current.next;
-        }
-    }
-}
-
-public class Q4c {
-    public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
-
-        // ... insertAtFront method
-        // ... searchRecord method
-
-        // Delete the record with Student ID "003"
-        linkedList.deleteRecord("003");
-    }
-}
-----------------------------------------------------------------------------------------------
-
-Use the created array in Q1for the following task. Using java
-a). Sort the array using Insertion Sort method and save it as "Q2a".
-
-//insertion sort
-public class InsertionSort {
-    public static void main(String[] args) {
-        int[] array = {4, 2, 9, 1, 5}; // Assuming you have an array as mentioned in Q1
-        System.out.println("Original array: ");
-        printArray(array);
-
-        // Sort the array using Insertion Sort
-        insertionSort(array);
-
-        System.out.println("Sorted array (Q2a): ");
-        printArray(array);
-    }
-
-    public static void insertionSort(int[] array) {
-        int n = array.length;
-        for (int i = 1; i < n; ++i) {
-            int key = array[i];
-            int j = i - 1;
-
-            // Move elements of array[0..i-1], that are greater than key,
-            // to one position ahead of their current position
-            while (j >= 0 && array[j] > key) {
-                array[j + 1] = array[j];
-                j = j - 1;
-            }
-            array[j + 1] = key;
-        }
-    }
-
-    public static void printArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
-    }
-}
-
-------------------------------------------------------------------------------------------------------
-
-//binary search
-b). Search an element in the array using Binary Recursive Search with the following features and save it as "Q2b".
-1. Integers to be entered during run time.
-2. Prompt the search value.
-3. Create separate functions for Insertion Sort and Binary search.
-
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class BinarySearch {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the number of elements in the array: ");
-        int size = scanner.nextInt();
-
-        int[] array = new int[size];
-
-        System.out.println("Enter the elements of the array:");
-        for (int i = 0; i < size; i++) {
-            array[i] = scanner.nextInt();
-        }
-
-        // Sort the array using Insertion Sort
-        insertionSort(array);
-
-        System.out.print("Sorted array (Q2a): ");
-        printArray(array);
-
-        System.out.print("Enter the search value: ");
-        int searchValue = scanner.nextInt();
-
-        int index = binarySearch(array, searchValue, 0, array.length - 1);
-
-        if (index != -1) {
-            System.out.println("Element found at index " + index + " (Q2b).");
-        } else {
-            System.out.println("Element not found in the array.");
-        }
-    }
-
-    public static void insertionSort(int[] array) {
-        int n = array.length;
-        for (int i = 1; i < n; ++i) {
-            int key = array[i];
-            int j = i - 1;
-
-            while (j >= 0 && array[j] > key) {
-                array[j + 1] = array[j];
-                j = j - 1;
-            }
-            array[j + 1] = key;
-        }
-    }
-
-    public static int binarySearch(int[] array, int searchValue, int low, int high) {
-        if (low <= high) {
-            int mid = low + (high - low) / 2;
-
-            if (array[mid] == searchValue) {
-                return mid;
-            }
-
-            if (array[mid] > searchValue) {
-                return binarySearch(array, searchValue, low, mid - 1);
-            }
-
-            return binarySearch(array, searchValue, mid + 1, high);
-        }
-
-        return -1;
-    }
-
-    public static void printArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
-    }
-}
-
-------------------------------------------------------------------------------------------------------------
-//BubbleSort
-
-public class BubbleSort {
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    // Swap arr[j] and arr[j+1]
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {64, 34, 25, 12, 22, 11, 90};
-
-        System.out.println("Original array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-
-        bubbleSort(arr);
-
-        System.out.println("\nSorted array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-    }
-}
-
-----------------------------------------------------------------------------------------------------------------
-//SelectionSort
-
-public class SelectionSort {
-    public static void selectionSort(int[] arr) {
-        int n = arr.length;
-
-        for (int i = 0; i < n - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < n; j++) {
-                if (arr[j] < arr[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            // Swap arr[i] with the minimum element
-            int temp = arr[minIndex];
-            arr[minIndex] = arr[i];
-            arr[i] = temp;
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {64, 34, 25, 12, 22, 11, 90};
-
-        System.out.println("Original array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-
-        selectionSort(arr);
-
-        System.out.println("\nSorted array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-    }
-}
--------------------------------------------------------------------------------------------------
-
-//MergeSort
-
-public class MergeSort {
-    public static void mergeSort(int[] arr) {
-        if (arr.length < 2) {
-            return;
-        }
-
-        int mid = arr.length / 2;
-        int[] left = new int[mid];
-        int[] right = new int[arr.length - mid];
-
-        System.arraycopy(arr, 0, left, 0, mid);
-        System.arraycopy(arr, mid, right, 0, arr.length - mid);
-
-        mergeSort(left);
-        mergeSort(right);
-        merge(arr, left, right);
-    }
-
-    private static void merge(int[] arr, int[] left, int[] right) {
-        int i = 0, j = 0, k = 0;
-
-        while (i < left.length && j < right.length) {
-            if (left[i] <= right[j]) {
-                arr[k] = left[i];
-                i++;
-            } else {
-                arr[k] = right[j];
-                j++;
-            }
-            k++;
-        }
-
-        while (i < left.length) {
-            arr[k] = left[i];
-            i++;
-            k++;
-        }
-
-        while (j < right.length) {
-            arr[k] = right[j];
-            j++;
-            k++;
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {64, 34, 25, 12, 22, 11, 90};
-
-        System.out.println("Original array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-
-        mergeSort(arr);
-
-        System.out.println("\nSorted array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-    }
-}
-
---------------------------------------------------------------------------------------------------------------------
-
-//QuickSort
-
-public class QuickSort {
-    public static void quickSort(int[] arr) {
-        quickSort(arr, 0, arr.length - 1);
-    }
-
-    private static void quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            int partitionIndex = partition(arr, low, high);
-
-            quickSort(arr, low, partitionIndex - 1);
-            quickSort(arr, partitionIndex + 1, high);
-        }
-    }
-
-    private static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = low - 1;
-
-        for (int j = low; j < high; j++) {
-            if (arr[j] < pivot) {
-                i++;
-                swap(arr, i, j);
-            }
-        }
-
-        swap(arr, i + 1, high);
-        return i + 1;
-    }
-
-    private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
-    public static void main(String[] args) {
-        int[] arr = {64, 34, 25, 12, 22, 11, 90};
-
-        System.out.println("Original array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-
-        quickSort(arr);
-
-        System.out.println("\nSorted array:");
-        for (int element : arr) {
-            System.out.print(element + " ");
-        }
-    }
-}
-
----------------------------------------------------------------------------------
-
-//single link list
-1. main file
-
-public class Main
-{
-
-	public static void main(String[] args)
-	{
+version and current date =  SELECT VERSION(), CURRENT_DATE;
+
+//2019
+(a)
+ (i) Create a database named hotel_db 
+CREATE DATABASE hotel_db;
+(ii) Create the tables with appropriate primary key and foreign key with the suitable data types. 
+CREATE table hotel (HotelNo varchar(10), HotelName varchar(20),city varchar(20), primary key(HotelNo));
+
+CREATE table room (RoomNo numeric (5), HotelNo varchar (10), Type varchar(10), Price decimal (5,2), primary key(RoomNo, HotelNo), foreign key(HotelNo) REFERENCES hotel (HotelNo));
+
+CREATE table guest (GuestNo numeric (5), GuestName varchar (20), GuestAddress varchar (50),primary key (GuestNo));
+
+CREATE table booking (HotelNo varchar(10), GuestNo numeric(5), datefrom date,dateto date, RoomNo numeric(5),primary key(HotelNo,GuestNo,datefrom),foreign key(RoomNo, HotelNo) REFERENCES room(RoomNo, HotelNo),
+foreign key(GuestNo) REFERENCES guest(GuestNo));
+
+(b) 
+(i). List the data definition of the tables you have created above.
+DESCRIBE booking;
+ (ii). List full details of all hotels. 
+SELECT *FROM hotel;
+(iii). List full details of all hotels in London. 
+SELECT *FROM hotel WHERE city LIKE '%London%';
+(iv). List the names and addresses of all guests in London, alphabetically ordered by name. 
+SELECT GuestName GuestAddress
+FROM guest
+WHERE GuestAddress LIKE '%London%'
+ORDER BY GuestName;
+(v). List all double or family rooms with a price below £40.00 per night, in ascending order of    price. 
+SELECT *FROM room
+WHERE Price < 40 AND Type IN ('Double','Family')
+ORDER BY Price;
+(vi). List the bookings for which no dateto has been specified. 
+SELECT*FROM booking WHERE dateto IS NULL;
+
+(c) (i). How many Hotels are there? 
+SELECT COUNT(*) FROM hotel; 
+(ii). What is the average price of a room? 
+SELECT AVG(price) FROM room; 
+(iii). What is the total revenue per night from all double rooms? 
+SELECT SUM(price) FROM room WHERE type = 'Double'; 
+(iv). How many different guests have made bookings for August? 
+SELECT COUNT(DISTINCT guestno) FROM booking WHERE (datefrom >= '2004-08-01' AND datefrom 
+<= '2004-08-31'); 
+(v). How many different guests have made bookings for May? 
+SELECT COUNT(DISTINCT guestno) FROM booking WHERE (datefrom >= '2004-05-01' AND datefrom 
+<= '2004-05-31'); 
+(d) (i). List the price and type of all rooms at the Grosvenor Hotel. 
+SELECT price, type FROM room 
+WHERE hotelno = (SELECT hotelno FROM hotel 
+WHERE hotelname = 'Grosvenor'); 
+(ii). List all guests currently staying at the Grosvenor Hotel. 
+SELECT * FROM guest WHERE guestno = 
+(SELECT guestno FROM booking 
+WHERE datefrom <= CURRENT_DATE AND dateto >= CURRENT_DATE AND 
+hotelno = (SELECT hotelno FROM hotel 
+WHERE hotelname = 'Grosvenor')); 
+
+(iii). List the details of all rooms at the Grosvenor Hotel, including the name of the guest staying in 
+the room, if the room is occupied. 
+SELECT r.* FROM room r LEFT JOIN (SELECT g.guestname, h.hotelno, b.roomno FROM Guest g, 
+Booking b, Hotel h 
+WHERE g.guestno = b.guestno AND b.hotelno = h.hotelno AND 
+h.hotelname= 'Grosvenor' AND 
+b.datefrom <= CURRENT_DATE AND b.dateto >= CURRENT_DATE) AS XXX 
+ON r.hotelno = XXX.hotelno AND r.roomno = XXX.roomno; 
+(iv). What is the total income from bookings for the Grosvenor Hotel today? SELECT SUM(price) 
+FROM booking b, room r, hotel h WHERE (b.datefrom <= CURRENT_DATE AND 
+b.dateto >= CURRENT_DATE) AND 
+r.hotelno = h.hotelno AND r.roomno = b.roomno; 
+(v). What is the lost income from unoccupied rooms at the Grosvenor Hotel? 
+SELECT SUM(price) FROM room r WHERE roomno NOT IN 
+(SELECT roomno FROM booking b, hotel h 
+WHERE (datefrom <= CURRENT_DATE AND 
+dateto >= CURRENT_DATE) AND 
+b.hotelno = h.hotelno AND hotelname = 'Grosvenor');
+
+
+
+//2017
+Q2
+i. Create a database called orderproc_db for an Order processing company using MySQL. 
+CREATE DATABASE orderproc_db;
+
+ii. Replace the data types in the tables given below with MySQL Compatible format.
+CUSTOMER (custno: INT, cname: VARCHAR(15), city: VARCHAR(15)) 
+ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
+ITEM (itemno:INT, unit_price: INT) 
+ORDE_ITEM (orderno: INT, itemno: INT, qty: INT) 
+WAREHOUSE (warehouseno:INT, city: VARCHAR(15)) 
+SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
+  
+iii. Using the orderproc_db database, create the following tables.  
+CUSTOMER (custno: INT, cname: STRING, city: STRING)
+	CUSTOMER (custno: INT, cname: VARCHAR(15), city: VARCHAR(15)) 
+CREATE TABLE CUSTOMER(custno INT, cname VARCHAR(15), city VARCHAR(15));
+ 
+ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
+	ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
+CREATE TABLE ORDE (orderno INT, odate DATE, custno INT, ord_amt INT);
+
+ITEM (itemno: INT, unit_price: INT)
+	ITEM (itemno: INT, unit_price: INT)
+CREATE TABLE ITEM (itemno INT, unit_price INT);	
+
+ORDE_ITEM (orderno: INT, itemno: INT, qty: INT) 
+	ORDE_ITEM (orderno: INT, itemno: INT, qty: INT)
+CREATE TABLE ORDE_ITEM (orderno INT, itemno INT, qty INT);
+
+WAREHOUSE (warehouseno: INT, city: STRING) 
+	WAREHOUSE (warehouseno: INT, city: VARCHAR(15))
+CREATE TABLE WAREHOUSE (warehouseno INT, city VARCHAR(15));
+
+SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
+	SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
+CREATE TABLE SHIPMENT (orderno INT, warehouseno INT, ship_date DATE);
+ 
+iv. Identify the primary key and define primary key constrains for the table.
+ALTER TABLE CUSTOMER ADD PRIMARY KEY(custno);
+ALTER TABLE SHIPMENT ADD PRIMARY KEY(orderno,warehouseno);
+
+v. Identify the foreign keys and enforce referential integrity for the tables.
+ALTER TABLE ORDE_ITEM ADD FOREIGN KEY(itemno) REFERENCES ITEM(itemno);
+ALTER TABLE SHIPMENT ADD FOREIGN KEY(warehouseno) REFERENCES WAREHOUSE(warehouseno),ADD FOREIGN KEY(orderno) REFERENCES ORDE(orderno);
+
+vi. Describe the structures of the tables you have created above. 
+DESCRIBE CUSTOMER; 
+
+vii. Insert the records to the tables. Records are available as text files with the respective table names in a folder called “Tables” on your desktop. You need to properly format these records before inserting into the tables. 
+LOAD DATA LOCAL INFILE "G:/ass/ass6/table file/customers.txt" INTO TABLE CUSTOMER;
+
+viii. List all customers from Batticaloa. 
+SELECT *FROM CUSTOMER WHERE city="Batticaloa";
+
+ix. Propose an alternative method to execute the above question (viii).
+SELECT *FROM customer WHERE city IN ('Batticaloa');
+
+x. Select all customers who are from Batticaloa or Jaffna. 
+SELECT *FROM CUSTOMER WHERE city="Batticaloa" OR city="Jaffna";
+xi. How many customers are there in Colombo? 
+SELECT COUNT(*) FROM CUSTOMER WHERE city='Colombo';
+
+xii. List the customer’s name ending with the letters “na”.
+SELECT *FROM  CUSTOMER WHERE cname LIKE '%na';
+
+xiii. List all the order amount above 50000.
+SELECT *FROM ORDE WHERE ord_amt > 50000;
+xiv. List all customers name who made order above 50000. 
+SELECT CUSTOMER.cname,ORDE.ord_amt 
+		FROM CUSTOMER INNER JOIN ORDE ON ORDE.custno = CUSTOMER.custno 
+		WHERE ord_amt>50000;
 		
-		SingleLinkedList2 list = new SingleLinkedList2();
-		
-		list.insertLast(4);
-		list.insertLast(2);
-		list.insertAtStart(5);
-		list.insertAt(1, 24);
-		list.insertLast(65);
-		list.insertLast(3);
-		list.insertAtStart(7);
-		list.insertAtStart(8);
-		list.insertLast(6);
-		list.insertAt(4, 9);
-		list.insertAtStart(10);
-		list.insertAtStart(11);
-		list.insertAt(3, 21);
-								// 10 8 21 5 24 9 4 2 65 3
-								// 13
-		
-		list.show();
-		list.countNodes();
-		
-		list.deleteLast();
-		list.deleteAt(4);
-		list.deleteFirst();
-		list.show();
-		list.countNodes();
-		
-		/* list.deleteAt(4);
-		list.deleteLast();
-		list.deleteFirst();
-		
-		list.show();
-		list.countNodes(); */
-	}
+xv. List all customers name who have at least one warehouse in their city.
+SELECT DISTINCT cname FROM CUSTOMER INNER JOIN WAREHOUSE on WAREHOUSE.city = CUSTOMER.city;
 
-}
+xvi. How many different cities are there in the customer table. 
+SELECT COUNT(DISTINCT(city)) FROM CUSTOMER; 
 
-2. node file
-public class Node
-{
-	int data;
-	Node next; // default value of next = null
-	
-	Node(int data) //6
-	{
-		this.data = data; // 6
-	}
-}
+xvii. How many warehouses are there in Colombo?. 
+SELECT COUNT(*) FROM WAREHOUSE WHERE city='Colombo';
 
-// new node => 6, null
+xviii. How do you check all order dates are less than or equal to shipping dates? 
+SELECT SHIPMENT.ship_date,ORDE.odate from SHIPMENT INNER JOIN ORDE on ORDE.orderno = SHIPMENT.orderno WHERE ship_date>=odate;
 
-3. 
+xix. List all the order number, order date, customer number and order amount where all the shipment made from Colombo warehouses. 
+SELECT ORDE.orderno,ORDE.odate,ORDE.custno,ORDE.ord_amt FROM ((ORDE INNER JOIN SHIPMENT on SHIPMENT.orderno=ORDE.orderno)
+INNER JOIN WAREHOUSE ON SHIPMENT.warehouseno =WAREHOUSE.warehouseno) WHERE WAREHOUSE.city='Colombo';
 
-class SingleLinkedList1
-{
-	public static void main(String args[])
-	{	
-		// Creating new nodes that are not connected together
-		Node nodeA = new Node(6); // 6, null
-		Node nodeB = new Node(3); // 3, null
-		Node nodeC = new Node(4); // 4, null
-		Node nodeD = new Node(2); // 2, null
-		Node nodeE = new Node(1); // 1, null
-		
-		// Connecting the nodes
-		Node head = nodeA;
-		head.next = nodeB;
-		nodeB.next = nodeC;
-		nodeC.next = nodeD;
-		nodeD.next = nodeE;
-		
-		// Printing the nodes
-		System.out.println("head node is " + head.data); // 6
-		System.out.println("second node is " + nodeB.data); // 3
-		System.out.println("third node is " + nodeC.data); // 4
-		System.out.println("fourth node is " + nodeD.data); // 2
-		System.out.println("fifth node is " + nodeE.data); // 1
-		
-		System.out.println("Number of nodes: " + countNodes(head));
-		
-	}
-	
-	static int countNodes(Node head)
-	{
-		int count = 0;
-		Node currentNode = head;
-		while(currentNode != null)
-		{
-			count++;
-			currentNode = currentNode.next;
-		}
-		return count;
-	}
-}
+xx. List all the customer names, number of orders and average order amount where the middle column is the total numbers of 
+orders by the customer and the last column is the average order amount for that customer. 
+SELECT cname,COUNT(*) AS number_of_oders,avg(ord_amt) AS average_ord_amt FROM CUSTOMER C JOIN ORDE O on C.custno = O.custno;
 
-4.
+xxi. Demonstrate how you can update the unit price for itemno 22 to the table ITEM.
+UPDATE orde_item SET qty=52 WHERE itemno=22;  
 
-public class SingleLinkedList2
-{
-	Node head;
-	
-	public void insertLast(int data)
-	{
-		Node newNode = new Node(data);
-		
-		if(head == null)
-		{
-			head = newNode;
-		}
-		
-		else
-		{
-			Node current = head;
-			while(current.next != null) 
-			{
-				current = current.next;
-			}
-			current.next =  newNode;
-		}
-		
-	}
-	
-	public void insertAtStart(int data) // 5
-	{
-		Node newNode = new Node(data); // 5, null
-		if(head == null)
-		{
-			head = newNode;
-		}
-		else
-		{
-			newNode.next = head;
-			head = newNode;
-		}
-		
-	}
-	
-	public void insertAt(int index, int data)
-	{
-		Node newNode = new Node(data); // 65, null
-		
-		if(index == 0)
-		{
-			insertAtStart(data);
-		}
-		
-		else
-		{
-			Node current = head; // 20
-			for(int i = 0; i < index-1; i++) // 0; 0<1
-			{
-				current = current.next; // 5
-			}
-			newNode.next = current.next; // 65, 20, 78
-			current.next = newNode; // 5, 65, 20, 78
-		}
-	}
-	
-	public void deleteAt(int index)
-	{
-		if(index == 0)
-		{
-			head = head.next;
-		}
-		else
-		{
-			Node current = head;
-			Node temp = null;
-			for(int i = 0; i < index-1; i++)
-			{
-				current = current.next;
-			}
-			temp = current.next;
-			current.next = temp.next;
-			System.out.println("Deleted element is " + temp.data);
-		}
-	}
-	
-	public void deleteLast()
-	{
-		Node current = head;
-		while(current.next.next != null)
-		{
-			current = current.next;
-		}
-		current.next = null;
-	}
-	
-	public void deleteFirst()
-	{
-		Node current = head;
-		head = current.next;
-		// head = head.next;
-	}
-	
-	public void countNodes()
-	{
-		int count = 0;
-		Node current = head;
-		while(current != null)
-		{
-			count++;
-			current = current.next;
-		}
-		System.out.println("Number of nodes in the list: " + count);
-		System.out.println();
-	}
-	
-	public void show()
-	{
-		Node current = head;
-		
-		while(current != null)
-		{
-			System.out.println(current.data);
-			current = current.next;
-		}
-		System.out.println();
-	}
-}
+xxii. Clone the table ORDE and name the colon table as NEWORDE.
+CREATE TABLE NEWORDE AS SELECT *FROM ORDE; 
 
------------------------------------------------------------------------------------------------
+xxiii. Drop the table ORDE and create a new table as follows.
+DROP TABLE ORDE;
 
-//Palindrome using Stack
+xxiv. Create a table called ORDER with the same field in the table NEWORDE. Explain the problem you may encountered and how can overcome it.
+ORDER is a key word.Then, we can't use this 'ORDER` word to create table.
+But we can use backtick for this ORDER word and we can create a ORDER table.
+	  
+CREATE TABLE `ORDER`(orderno INT, odate DATE, custno INT, ord_amt INT);
+	  
+xxv. Backup your database as orderproc_db.sql into the main folder. 
 
-import java.util.Stack;
-import java.util.Scanner;
-public class PalindromeStack {
 
-        public static void main(String[] args) {
+//2018
 
-            System.out.print("Please enter any string: ");
-            Scanner Sc =new Scanner(System.in);
-            String inputString = Sc.nextLine();
-            Stack stack = new Stack();
+Create a text file using notepad++ to save the answers for the following questions. Set the name of this file as "dbanswers.txt".
 
-            for (int i = 0; i < inputString.length(); i++) {
-                stack.push(inputString.charAt(i));
-            }
+i. Using MySQL, create a database called covid_patients_db for the above purpose.
+ii. Using the covid patients db database, create the following tables, use the below
+schema with suitable MySQL data types.
 
-            String reverseString = "";
+PATIENT (pid, pname, hid, symptoms, address, sex, date of birth, remarks) DOCTOR (did, drame, hid, speciality)
 
-            while (!stack.isEmpty()) {
-                reverseString = reverseString+stack.pop();
-            }
+VACCINE (vname, pid, first dose_date, second dose_date, third_dose_date)
 
-            if (inputString.equals(reverseString))
-                System.out.println("Sting is a palindrome.");
-            else
-                System.out.println("Sting is not palindrome.");
+HOSPITAL (hid, hname, district, province, tpno)
 
-        }
-    }
----------------------------------------------------------------------------------------------------
-// Palindrome using Queue
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.LinkedList;
-class PalindromeQueue {
+iii. Identify the primary keys for the tables and define the necessary primary key constrains.
+iv. Identify the foreign keys and enforce referential integrity where necessary.
+v. Insert the records to the tables. Records are available as text files with the respective 
+table names in a folder called "Tables" on your desktop. You need to properly format these records before inserting into the tables. Use the tables given for this purpose.
+(b)
 
-    public static void main(String[] args) {
+i. Carefully read the error in the following and explain why this is occurred. How can
+you rectify this? INSERT INTO PATIENT VALUES ('COJF0002', 'Krishanth','JFTH', 'Mild Cough", "No 12
+Main Street Nallur, Jaffna', 'M', '2022-05-05','All three doses vaccinated");
+ERROR 1406 (22001): Data too long for column 'remarks' at row 1
+If you have this error correct it and insert the record again.
 
-    	System.out.print("Please enter any string: ");
-        Scanner Sc =new Scanner(System.in);
-        String inputString = Sc.nextLine();
-        Queue queue = new LinkedList();
+ii. When entering the patient details a Nurse made a mistake. Exploring the patient table 
+carefully and you can observe that in the symptom column the first record is entered with a 
+spelling mistake. That is "Caugh" should be "Cough". How can you correct this without deleting and inserting this record again?
 
-        for (int i = inputString.length()-1; i >=0; i--) {
-            queue.add(inputString.charAt(i));
-        }
+iii. Explain why and error can occur when trying the following in MySQL console?
+INSERT INTO PATIENT VALUES ('CONI0001', 'Rasool', 'No Severe Fever and Cough', 'No 05, 
+Mundal Puttalam', 'M','12-06-2021','One dose vaccinated'); How can you rectify this? 
+correct it and insert the record again.
 
-        String reverseString = "";
+iv. List all patients who have vaccinated all three doses.
 
-        while (!queue.isEmpty()) {
-            reverseString = reverseString+queue.remove();
-        }
-        if (inputString.equals(reverseString))
-            System.out.println("Sting is a palindrome.");
-        else
-            System.out.println("Sting is not palindrome.");
+(c)
 
-    }
-}
+i. List all provinces of the hospitals where more Virologist are available 
+ii. List all hospitals where a smaller number of patients are admitted.
+iii. List all districts where more severe cases are admitted.
+iv. With suitable query to deduce the relationship of vaccination and the case severity.
+State all assumptions you have made.
+v. Back up your database and set the name of the backup as coviddb.sql
 
--------------------------------------------------------------------------------------------
-//Palindrome using Stack and Queue
+//answers
+Q1
+a) 
+1) 
+CREATE DATABASE covid_patients_db;
 
-import java.util.Queue;
-import java.util.Stack;
-import java.util.Scanner;
-import java.util.LinkedList;
+2) 
+CREATE TABLE PATIENT (pid VARCHAR(15), pname VARCHAR(15), hid VARCHAR(10), symptoms VARCHAR(35), address VARCHAR(60), sex VARCHAR(2), date_of_birth DATE, remarks VARCHAR(60));
+CREATE TABLE DOCTOR (did VARCHAR(15), dname VARCHAR(15), hid VARCHAR(10), speciality VARCHAR(20));
+CREATE TABLE VACCINE (vname VARCHAR(15), pid VARCHAR(15), first_dose_date DATE, second_dose_date DATE, third_dose_date DATE);
+CREATE TABLE HOSPITAL (hid VARCHAR(10), hname VARCHAR(30), district VARCHAR(15), province VARCHAR(15), tpno VARCHAR(10));
 
-public class PalindromeStacknQueue 
-{
-   public static void main(String[ ] args)
-   {
-	Scanner Sc = new Scanner(System.in); 
-	String inputString;      
-      	System.out.print("Please enter any string: ");
-        inputString = Sc.next( );
+3) 
+ALTER TABLE PATIENT ADD PRIMARY KEY(pid);
+ALTER TABLE VACCINE ADD PRIMARY KEY(vname,pid);
 
-	if (isPalindrome( inputString )){
-		System.out.println("Sting is a palindrome.");
-	}
-	else{
-		System.out.println("Sting is not palindrome.");
-      	}
-   }
+4)
+ALTER TABLE  DOCTOR ADD FOREIGN KEY(hid) REFERENCES PATIENT(hid);
 
-   public static boolean isPalindrome(String input) 
-   {   
-      Queue<Character> x = new LinkedList<Character>( );
-      Stack<Character> y = new Stack<Character>( );
-      char letter;
-      int i;
-      
-      for (i = 0; i < input.length( ); i++)
-      {
-	 letter = input.charAt(i);
-         x.add(letter);
-         y.push(letter);
-      }    
-      while (!x.isEmpty( ))
-      {
-         if (x.remove( ) != y.pop( ))
-           return false;
-      }
-      return true; 
-   }
-    
-}
+5)
+LOAD DATA LOCAL INFILE "D:/ass/ass7 (real4)/table/PATIENT.txt" INTO TABLE PATIENT;
+b)
+1)
+Because in remarks column we need to put more column size, then we can enter the values. 
+
+2)
+UPDATE PATIENT SET symptoms = 'Mild Caugh' WHERE symptoms = 'Mild Cough';
+UPDATE PATIENT SET symptoms = 'Severe Caugh' WHERE symptoms = 'Severe Cough';
+
+3)
+Because date type is incorrect. '12-06-2021' want to replace '2021-06-12' like this.
+
+INSERT INTO PATIENT VALUES ('CONI0001','Rasool' ,'NIID', 'Severe Fever and Cough',
+'No 05, Mundal Puttalam','M','2021-06-12','One dose vaccinated');
+
+4)
+SELECT *FROM PATIENT WHERE  remarks="All three doses vaccinated";
+
+c)
+1)
+SELECT DISTINCT h.province FROM hospital h JOIN doctor d WHERE (d.speciality = 'Virologist') AND (d.hid = h.hid);
+2)
+SELECT * FROM hospital WHERE hid = (SELECT hid FROM patient GROUP BY hid ORDER BY COUNT(*) LIMIT 1);
+3)
+SELECT * FROM hospital WHERE hid = (SELECT hid FROM patient WHERE symptoms LIKE '%Severe%' GROUP BY hid ORDER BY COUNT(*) DESC LIMIT 1);
+4)
+SELECT symptoms,remarks FROM patient GROUP BY remarks;
+         Assumption -> One dose vaccinated -> Severe Fever and Cough
+         Assumption -> Two dose vaccinated -> Severe Fever and Cough
+         Assumption -> All doses vaccinated -> Mild Cough
+
+
+
+=======================Joining====================================
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
