@@ -1,330 +1,879 @@
-version and current date =  SELECT VERSION(), CURRENT_DATE;
-
-//2019
-(a)
- (i) Create a database named hotel_db 
-CREATE DATABASE hotel_db;
-(ii) Create the tables with appropriate primary key and foreign key with the suitable data types. 
-CREATE table hotel (HotelNo varchar(10), HotelName varchar(20),city varchar(20), primary key(HotelNo));
-
-CREATE table room (RoomNo numeric (5), HotelNo varchar (10), Type varchar(10), Price decimal (5,2), primary key(RoomNo, HotelNo), foreign key(HotelNo) REFERENCES hotel (HotelNo));
-
-CREATE table guest (GuestNo numeric (5), GuestName varchar (20), GuestAddress varchar (50),primary key (GuestNo));
-
-CREATE table booking (HotelNo varchar(10), GuestNo numeric(5), datefrom date,dateto date, RoomNo numeric(5),primary key(HotelNo,GuestNo,datefrom),foreign key(RoomNo, HotelNo) REFERENCES room(RoomNo, HotelNo),
-foreign key(GuestNo) REFERENCES guest(GuestNo));
-
-(b) 
-(i). List the data definition of the tables you have created above.
-DESCRIBE booking;
- (ii). List full details of all hotels. 
-SELECT *FROM hotel;
-(iii). List full details of all hotels in London. 
-SELECT *FROM hotel WHERE city LIKE '%London%';
-(iv). List the names and addresses of all guests in London, alphabetically ordered by name. 
-SELECT GuestName GuestAddress
-FROM guest
-WHERE GuestAddress LIKE '%London%'
-ORDER BY GuestName;
-(v). List all double or family rooms with a price below £40.00 per night, in ascending order of    price. 
-SELECT *FROM room
-WHERE Price < 40 AND Type IN ('Double','Family')
-ORDER BY Price;
-(vi). List the bookings for which no dateto has been specified. 
-SELECT*FROM booking WHERE dateto IS NULL;
-
-(c) (i). How many Hotels are there? 
-SELECT COUNT(*) FROM hotel; 
-(ii). What is the average price of a room? 
-SELECT AVG(price) FROM room; 
-(iii). What is the total revenue per night from all double rooms? 
-SELECT SUM(price) FROM room WHERE type = 'Double'; 
-(iv). How many different guests have made bookings for August? 
-SELECT COUNT(DISTINCT guestno) FROM booking WHERE (datefrom >= '2004-08-01' AND datefrom 
-<= '2004-08-31'); 
-(v). How many different guests have made bookings for May? 
-SELECT COUNT(DISTINCT guestno) FROM booking WHERE (datefrom >= '2004-05-01' AND datefrom 
-<= '2004-05-31'); 
-(d) (i). List the price and type of all rooms at the Grosvenor Hotel. 
-SELECT price, type FROM room 
-WHERE hotelno = (SELECT hotelno FROM hotel 
-WHERE hotelname = 'Grosvenor'); 
-(ii). List all guests currently staying at the Grosvenor Hotel. 
-SELECT * FROM guest WHERE guestno = 
-(SELECT guestno FROM booking 
-WHERE datefrom <= CURRENT_DATE AND dateto >= CURRENT_DATE AND 
-hotelno = (SELECT hotelno FROM hotel 
-WHERE hotelname = 'Grosvenor')); 
-
-(iii). List the details of all rooms at the Grosvenor Hotel, including the name of the guest staying in 
-the room, if the room is occupied. 
-SELECT r.* FROM room r LEFT JOIN (SELECT g.guestname, h.hotelno, b.roomno FROM Guest g, 
-Booking b, Hotel h 
-WHERE g.guestno = b.guestno AND b.hotelno = h.hotelno AND 
-h.hotelname= 'Grosvenor' AND 
-b.datefrom <= CURRENT_DATE AND b.dateto >= CURRENT_DATE) AS XXX 
-ON r.hotelno = XXX.hotelno AND r.roomno = XXX.roomno; 
-(iv). What is the total income from bookings for the Grosvenor Hotel today? SELECT SUM(price) 
-FROM booking b, room r, hotel h WHERE (b.datefrom <= CURRENT_DATE AND 
-b.dateto >= CURRENT_DATE) AND 
-r.hotelno = h.hotelno AND r.roomno = b.roomno; 
-(v). What is the lost income from unoccupied rooms at the Grosvenor Hotel? 
-SELECT SUM(price) FROM room r WHERE roomno NOT IN 
-(SELECT roomno FROM booking b, hotel h 
-WHERE (datefrom <= CURRENT_DATE AND 
-dateto >= CURRENT_DATE) AND 
-b.hotelno = h.hotelno AND hotelname = 'Grosvenor');
-
-
-
-//2017
-Q2
-i. Create a database called orderproc_db for an Order processing company using MySQL. 
-CREATE DATABASE orderproc_db;
-
-ii. Replace the data types in the tables given below with MySQL Compatible format.
-CUSTOMER (custno: INT, cname: VARCHAR(15), city: VARCHAR(15)) 
-ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
-ITEM (itemno:INT, unit_price: INT) 
-ORDE_ITEM (orderno: INT, itemno: INT, qty: INT) 
-WAREHOUSE (warehouseno:INT, city: VARCHAR(15)) 
-SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
-  
-iii. Using the orderproc_db database, create the following tables.  
-CUSTOMER (custno: INT, cname: STRING, city: STRING)
-	CUSTOMER (custno: INT, cname: VARCHAR(15), city: VARCHAR(15)) 
-CREATE TABLE CUSTOMER(custno INT, cname VARCHAR(15), city VARCHAR(15));
- 
-ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
-	ORDE (orderno: INT, odate: DATE, custno: INT, ord_amt: INT) 
-CREATE TABLE ORDE (orderno INT, odate DATE, custno INT, ord_amt INT);
-
-ITEM (itemno: INT, unit_price: INT)
-	ITEM (itemno: INT, unit_price: INT)
-CREATE TABLE ITEM (itemno INT, unit_price INT);	
-
-ORDE_ITEM (orderno: INT, itemno: INT, qty: INT) 
-	ORDE_ITEM (orderno: INT, itemno: INT, qty: INT)
-CREATE TABLE ORDE_ITEM (orderno INT, itemno INT, qty INT);
-
-WAREHOUSE (warehouseno: INT, city: STRING) 
-	WAREHOUSE (warehouseno: INT, city: VARCHAR(15))
-CREATE TABLE WAREHOUSE (warehouseno INT, city VARCHAR(15));
-
-SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
-	SHIPMENT (orderno: INT, warehouseno: INT, ship_date: DATE)
-CREATE TABLE SHIPMENT (orderno INT, warehouseno INT, ship_date DATE);
- 
-iv. Identify the primary key and define primary key constrains for the table.
-ALTER TABLE CUSTOMER ADD PRIMARY KEY(custno);
-ALTER TABLE SHIPMENT ADD PRIMARY KEY(orderno,warehouseno);
-
-v. Identify the foreign keys and enforce referential integrity for the tables.
-ALTER TABLE ORDE_ITEM ADD FOREIGN KEY(itemno) REFERENCES ITEM(itemno);
-ALTER TABLE SHIPMENT ADD FOREIGN KEY(warehouseno) REFERENCES WAREHOUSE(warehouseno),ADD FOREIGN KEY(orderno) REFERENCES ORDE(orderno);
-
-vi. Describe the structures of the tables you have created above. 
-DESCRIBE CUSTOMER; 
-
-vii. Insert the records to the tables. Records are available as text files with the respective table names in a folder called “Tables” on your desktop. You need to properly format these records before inserting into the tables. 
-LOAD DATA LOCAL INFILE "G:/ass/ass6/table file/customers.txt" INTO TABLE CUSTOMER;
-
-viii. List all customers from Batticaloa. 
-SELECT *FROM CUSTOMER WHERE city="Batticaloa";
-
-ix. Propose an alternative method to execute the above question (viii).
-SELECT *FROM customer WHERE city IN ('Batticaloa');
-
-x. Select all customers who are from Batticaloa or Jaffna. 
-SELECT *FROM CUSTOMER WHERE city="Batticaloa" OR city="Jaffna";
-xi. How many customers are there in Colombo? 
-SELECT COUNT(*) FROM CUSTOMER WHERE city='Colombo';
-
-xii. List the customer’s name ending with the letters “na”.
-SELECT *FROM  CUSTOMER WHERE cname LIKE '%na';
-
-xiii. List all the order amount above 50000.
-SELECT *FROM ORDE WHERE ord_amt > 50000;
-xiv. List all customers name who made order above 50000. 
-SELECT CUSTOMER.cname,ORDE.ord_amt 
-		FROM CUSTOMER INNER JOIN ORDE ON ORDE.custno = CUSTOMER.custno 
-		WHERE ord_amt>50000;
-		
-xv. List all customers name who have at least one warehouse in their city.
-SELECT DISTINCT cname FROM CUSTOMER INNER JOIN WAREHOUSE on WAREHOUSE.city = CUSTOMER.city;
-
-xvi. How many different cities are there in the customer table. 
-SELECT COUNT(DISTINCT(city)) FROM CUSTOMER; 
-
-xvii. How many warehouses are there in Colombo?. 
-SELECT COUNT(*) FROM WAREHOUSE WHERE city='Colombo';
-
-xviii. How do you check all order dates are less than or equal to shipping dates? 
-SELECT SHIPMENT.ship_date,ORDE.odate from SHIPMENT INNER JOIN ORDE on ORDE.orderno = SHIPMENT.orderno WHERE ship_date>=odate;
-
-xix. List all the order number, order date, customer number and order amount where all the shipment made from Colombo warehouses. 
-SELECT ORDE.orderno,ORDE.odate,ORDE.custno,ORDE.ord_amt FROM ((ORDE INNER JOIN SHIPMENT on SHIPMENT.orderno=ORDE.orderno)
-INNER JOIN WAREHOUSE ON SHIPMENT.warehouseno =WAREHOUSE.warehouseno) WHERE WAREHOUSE.city='Colombo';
-
-xx. List all the customer names, number of orders and average order amount where the middle column is the total numbers of 
-orders by the customer and the last column is the average order amount for that customer. 
-SELECT cname,COUNT(*) AS number_of_oders,avg(ord_amt) AS average_ord_amt FROM CUSTOMER C JOIN ORDE O on C.custno = O.custno;
-
-xxi. Demonstrate how you can update the unit price for itemno 22 to the table ITEM.
-UPDATE orde_item SET qty=52 WHERE itemno=22;  
-
-xxii. Clone the table ORDE and name the colon table as NEWORDE.
-CREATE TABLE NEWORDE AS SELECT *FROM ORDE; 
-
-xxiii. Drop the table ORDE and create a new table as follows.
-DROP TABLE ORDE;
-
-xxiv. Create a table called ORDER with the same field in the table NEWORDE. Explain the problem you may encountered and how can overcome it.
-ORDER is a key word.Then, we can't use this 'ORDER` word to create table.
-But we can use backtick for this ORDER word and we can create a ORDER table.
-	  
-CREATE TABLE `ORDER`(orderno INT, odate DATE, custno INT, ord_amt INT);
-	  
-xxv. Backup your database as orderproc_db.sql into the main folder. 
-
-
-//2018
-
-Create a text file using notepad++ to save the answers for the following questions. Set the name of this file as "dbanswers.txt".
-
-i. Using MySQL, create a database called covid_patients_db for the above purpose.
-ii. Using the covid patients db database, create the following tables, use the below
-schema with suitable MySQL data types.
-
-PATIENT (pid, pname, hid, symptoms, address, sex, date of birth, remarks) DOCTOR (did, drame, hid, speciality)
-
-VACCINE (vname, pid, first dose_date, second dose_date, third_dose_date)
-
-HOSPITAL (hid, hname, district, province, tpno)
-
-iii. Identify the primary keys for the tables and define the necessary primary key constrains.
-iv. Identify the foreign keys and enforce referential integrity where necessary.
-v. Insert the records to the tables. Records are available as text files with the respective 
-table names in a folder called "Tables" on your desktop. You need to properly format these records before inserting into the tables. Use the tables given for this purpose.
-(b)
-
-i. Carefully read the error in the following and explain why this is occurred. How can
-you rectify this? INSERT INTO PATIENT VALUES ('COJF0002', 'Krishanth','JFTH', 'Mild Cough", "No 12
-Main Street Nallur, Jaffna', 'M', '2022-05-05','All three doses vaccinated");
-ERROR 1406 (22001): Data too long for column 'remarks' at row 1
-If you have this error correct it and insert the record again.
-
-ii. When entering the patient details a Nurse made a mistake. Exploring the patient table 
-carefully and you can observe that in the symptom column the first record is entered with a 
-spelling mistake. That is "Caugh" should be "Cough". How can you correct this without deleting and inserting this record again?
-
-iii. Explain why and error can occur when trying the following in MySQL console?
-INSERT INTO PATIENT VALUES ('CONI0001', 'Rasool', 'No Severe Fever and Cough', 'No 05, 
-Mundal Puttalam', 'M','12-06-2021','One dose vaccinated'); How can you rectify this? 
-correct it and insert the record again.
-
-iv. List all patients who have vaccinated all three doses.
-
-(c)
-
-i. List all provinces of the hospitals where more Virologist are available 
-ii. List all hospitals where a smaller number of patients are admitted.
-iii. List all districts where more severe cases are admitted.
-iv. With suitable query to deduce the relationship of vaccination and the case severity.
-State all assumptions you have made.
-v. Back up your database and set the name of the backup as coviddb.sql
-
-//answers
+// 2018
 Q1
-a) 
-1) 
-CREATE DATABASE covid_patients_db;
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h1>Diagnosing foliage problem</h1>
 
-2) 
-CREATE TABLE PATIENT (pid VARCHAR(15), pname VARCHAR(15), hid VARCHAR(10), symptoms VARCHAR(35), address VARCHAR(60), sex VARCHAR(2), date_of_birth DATE, remarks VARCHAR(60));
-CREATE TABLE DOCTOR (did VARCHAR(15), dname VARCHAR(15), hid VARCHAR(10), speciality VARCHAR(20));
-CREATE TABLE VACCINE (vname VARCHAR(15), pid VARCHAR(15), first_dose_date DATE, second_dose_date DATE, third_dose_date DATE);
-CREATE TABLE HOSPITAL (hid VARCHAR(10), hname VARCHAR(30), district VARCHAR(15), province VARCHAR(15), tpno VARCHAR(10));
+    <ol type="1">
+      <li>Yellow</li>
+      <ul type="circle">
+        <li>Wet soil</li>
+        <li>Low fertility</li>
+        <li>Root rot pathogens</li>
+        <li>Root cut or damaged</li>
+        <li>Nematodes</li>
+      </ul>
+      <li>Necrotic spots</li>
+      <li>White powder</li>
+      <li>Light and dark green areas</li>
+      <li>Holes or chewed areas</li>
+    </ol>
+  </body>
+</html>
 
-3) 
-ALTER TABLE PATIENT ADD PRIMARY KEY(pid);
-ALTER TABLE VACCINE ADD PRIMARY KEY(vname,pid);
+--------------------------------------------------------------------------------------------
+Q2
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h1>Application Form</h1>
 
-4)
-ALTER TABLE  DOCTOR ADD FOREIGN KEY(hid) REFERENCES PATIENT(hid);
+    <form>
+      <div>
+        <label for="fname">First Name:</label>
+        <input type="text" name="fname" id="fname" />
 
-5)
-LOAD DATA LOCAL INFILE "D:/ass/ass7 (real4)/table/PATIENT.txt" INTO TABLE PATIENT;
-b)
-1)
-Because in remarks column we need to put more column size, then we can enter the values. 
+        <label for="lname">Last Name:</label>
+        <input type="text" name="lname" id="lname" />
+      </div>
 
-2)
-UPDATE PATIENT SET symptoms = 'Mild Caugh' WHERE symptoms = 'Mild Cough';
-UPDATE PATIENT SET symptoms = 'Severe Caugh' WHERE symptoms = 'Severe Cough';
+      <br />
 
-3)
-Because date type is incorrect. '12-06-2021' want to replace '2021-06-12' like this.
+      <div>
+        <label for="dob">Date of birth:</label>
+        <input type="date" name="dob" id="dob" />
 
-INSERT INTO PATIENT VALUES ('CONI0001','Rasool' ,'NIID', 'Severe Fever and Cough',
-'No 05, Mundal Puttalam','M','2021-06-12','One dose vaccinated');
+        <label for="email">Email Address:</label>
+        <input type="email" name="email" id="email" />
+      </div>
 
-4)
-SELECT *FROM PATIENT WHERE  remarks="All three doses vaccinated";
+      <br />
 
-c)
-1)
-SELECT DISTINCT h.province FROM hospital h JOIN doctor d WHERE (d.speciality = 'Virologist') AND (d.hid = h.hid);
-2)
-SELECT * FROM hospital WHERE hid = (SELECT hid FROM patient GROUP BY hid ORDER BY COUNT(*) LIMIT 1);
-3)
-SELECT * FROM hospital WHERE hid = (SELECT hid FROM patient WHERE symptoms LIKE '%Severe%' GROUP BY hid ORDER BY COUNT(*) DESC LIMIT 1);
-4)
-SELECT symptoms,remarks FROM patient GROUP BY remarks;
-         Assumption -> One dose vaccinated -> Severe Fever and Cough
-         Assumption -> Two dose vaccinated -> Severe Fever and Cough
-         Assumption -> All doses vaccinated -> Mild Cough
+      <div>
+        <label for="">Available positions:</label>
+
+        <input
+          type="radio"
+          name="positions"
+          id="juniorDeveloper"
+          value="junior developer"
+        />
+        <label for="juniorDeveloper">Junior Developer:</label>
+
+        <input
+          type="radio"
+          name="positions"
+          id="midLevelDeveloper"
+          value="mid-level developer"
+        />
+        <label for="midLevelDeveloper">Mid-Level Developer:</label>
+
+        <input
+          type="radio"
+          name="positions"
+          id="seniorDeveloper"
+          value="senior developer"
+        />
+        <label for="seniorDeveloper">Senior Developer:</label>
+      </div>
+
+      <br />
+
+      <div>
+        <label for="">Programming Languages:</label>
+
+        <input type="checkbox" name="java" id="java" value="java" />
+        <label for="java">Java</label>
+
+        <input
+          type="checkbox"
+          name="javascript"
+          id="javascript"
+          value="javascript"
+        />
+        <label for="javascript">Javascript</label>
+
+        <input type="checkbox" name="python" id="python" value="python" />
+        <label for="python">Python</label>
+      </div>
+
+      <br />
+
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" />
+
+        <label for="confpassword">Confirm Password:</label>
+        <input type="password" name="confpassword" id="confpassword" />
+      </div>
+
+      <br />
+
+      <div>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </div>
+    </form>
+  </body>
+</html>
+
+--------------------------------------------------------------------------------------------------------
+Q3
+
+//html code
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./q3_styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <form id="form">
+          <div class="">
+            <label for="decimal">Enter decimal value:</label>
+            <input type="number" name="decimal" id="decimal" min="0" required />
+          </div>
+
+          <div class="btns">
+            <button type="submit" class="btn green">Convert</button>
+            <button type="reset" class="btn gray">Reset</button>
+          </div>
+        </form>
+
+        <div class="">
+          <label for="binary">Binary Number:</label>
+          <textarea name="binary" id="binary"></textarea>
+        </div>
+
+        <div class="">
+          <label for="hex">Hex Number:</label>
+          <textarea name="hex" id="hex"></textarea>
+        </div>
+
+        <div class="">
+          <label for="octal">Octal Number:</label>
+          <textarea name="octal" id="octal"></textarea>
+        </div>
+      </div>
+    </main>
+
+    <script src="./q3_script.js"></script>
+  </body>
+</html>
+
+//css code
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  height: 100vh;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+  color: rgb(62, 62, 62);
+}
+
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 5px 8px;
+  margin-top: 10px;
+}
+
+.btns {
+  margin: 10px 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  appearance: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.green {
+  background-color: rgb(186, 241, 186);
+  color: rgb(5, 99, 5);
+}
+
+.gray {
+  background-color: rgb(225, 225, 225);
+  color: rgb(66, 66, 66);
+}
+
+//js code
+
+const decimal = document.getElementById("decimal");
+const octal = document.getElementById("octal");
+const hex = document.getElementById("hex");
+const form = document.getElementById("form");
+
+function convertDecimal(decimal, base) {
+  let rem = 0;
+  let divident = decimal;
+  let divisor = base;
+  let value = "";
+
+  const hexMap = {
+    10: "A",
+    11: "B",
+    12: "C",
+    13: "D",
+    14: "E",
+    15: "F",
+  };
+
+  while (divident >= 1) {
+    rem = divident % divisor;
+    divident = parseInt(divident / divisor);
+    if (base === 16 && rem >= 10) {
+      rem = hexMap[rem];
+    }
+    value = rem + value;
+  }
+  return value;
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  binary.innerText = convertDecimal(parseInt(decimal.value), 2);
+  hex.innerText = convertDecimal(parseInt(decimal.value), 16);
+  octal.innerText = convertDecimal(parseInt(decimal.value), 8);
+});
+
+form.addEventListener("reset", (e) => {
+  binary.innerText = "";
+  octal.innerText = "";
+  hex.innerText = "";
+});
+
+----------------------------------------------------------------------------------------------------------------
+//2017
+Q1
+
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <table border="2px solid black">
+      <tr>
+        <th>
+          <img
+            width="250px"
+            src="https://site-images.similarcdn.com/url?url=https%3A%2F%2Fplay-lh.googleusercontent.com%2FDTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr&h=b843ab20277d325430b084a49cb711f12b2726be176ab9ff97c2958dbe785046"
+            alt=""
+          />
+        </th>
+        <th>
+          <h1>Welcome to New Skill Academy</h1>
+        </th>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          New Skills Academy is an institution for higher learining research,
+          and honarary degree New Skills Academy is the <br />
+          worldwide group composed of professors and researchers, at the
+          institute of higher learning.
+        </td>
+      </tr>
+    </table>
+
+    <br />
+
+    <table border="2px solid black">
+      <tr>
+        <th>Calculus and Analytical geometry</th>
+        <th>Statistics</th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <td>
+          topic: include a vector in three space three dimenstional space
+          multivariate functions etc
+        </td>
+        <td>
+          Mathematical alaysis representations and synopses for a given set of
+          experimental data or real life studies.
+        </td>
+        <td rowspan="2">
+          <img
+            width="450px"
+            src="https://img.freepik.com/premium-photo/teenager-student-girl-yellow-pointing-finger-side_1368-40175.jpg?w=2000"
+            alt=""
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2"></td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+-------------------------------------------------------------------------------------------------------------------
+Q2
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .main_table > tr,
+      td {
+        padding: 10px 0px;
+      }
+
+      .sub_table > tr,
+      td {
+        padding: 5px 0px;
+      }
+
+      .sub_table {
+        border: 2px solid black;
+        padding: 0 5px;
+      }
+
+      .main_label {
+        margin-right: 50px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form {
+        width: max-content;
+        padding: 10px;
+        border: 2px solid black;
+        background: lightgray;
+      }
+
+      .title {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1 class="title">STUDENT REGISTRATION FORM</h1>
+
+      <form action="" class="form">
+        <table class="main_table">
+          <tr>
+            <td>
+              <label class="main_label" for="fname">FIRST NAME</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="fname"
+                id="fname"
+                maxlength="30"
+                pattern="[a-zA-Z]"
+                required
+              />
+              <span>(max 30 characters a-z and A-Z)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="lname">LAST NAME</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="lname"
+                id="lname"
+                maxlength="30"
+                pattern="[a-zA-Z]"
+                required
+              />
+              <span>(max 30 characters a-z and A-Z)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="dob">DATE OF BIRTH</label>
+            </td>
+            <td>
+              <input type="date" name="dob" id="dob" required />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="email">EMAIL ID</label>
+            </td>
+            <td>
+              <input type="email" name="email" id="email" required />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="tel">MOBILE NUMBER</label>
+            </td>
+            <td>
+              <input type="tel" name="tel" id="tel" max="10" required />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="tel">GENDER</label>
+            </td>
+            <td>
+              <label for="male">Male</label>
+              <input type="radio" name="gender" id="male" value="male" />
+
+              <label for="female">Female</label>
+              <input type="radio" name="gender" id="female" value="female" />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="address">ADDRESS</label>
+            </td>
+            <td>
+              <textarea
+                name="address"
+                id="address"
+                cols="30"
+                rows="5"
+              ></textarea>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="city">CITY</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                max="30"
+                pattern="[a-zA-Z]"
+                required
+              />
+              <span>(max 30 characters a-z and A-Z)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="pinCode">PIN CODE</label>
+            </td>
+            <td>
+              <input
+                type="number"
+                name="pinCode"
+                id="pinCode"
+                max="6"
+                required
+              />
+              <span>(6 digit number)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="state">STATE</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="state"
+                id="state"
+                max="30"
+                pattern="[a-zA-Z]"
+                required
+              />
+              <span>(max 30 characters a-z and A-Z)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="country">COUNTRY</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="country"
+                id="country"
+                value="India"
+                required
+              />
+              <span>(max 30 characters a-z and A-Z)</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="hobbies">HOBIES</label>
+            </td>
+            <td>
+              <label for="Drawing">Drawing</label>
+              <input
+                type="checkbox"
+                name="hobby"
+                id="Drawing"
+                value="Drawing"
+              />
+
+              <label for="Singing">Singing</label>
+              <input
+                type="checkbox"
+                name="hobby"
+                id="Singing"
+                value="Singing"
+              />
+
+              <label for="Dancing">Dancing</label>
+              <input
+                type="checkbox"
+                name="hobby"
+                id="Dancing"
+                value="Dancing"
+              />
+
+              <label for="Sketching">Sketching</label>
+              <input
+                type="checkbox"
+                name="hobby"
+                id="Sketching"
+                value="Sketching"
+              />
+
+              <label for="Other">Other</label>
+              <input type="checkbox" name="hobby" id="Other" value="Other" />
+
+              <input type="text" name="other" />
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="qualification"
+                >QUALIFICATION</label
+              >
+            </td>
+
+            <td class="sub_table">
+              <table>
+                <tr>
+                  <th>Si.No</th>
+                  <th>Examination</th>
+                  <th>Board</th>
+                  <th>Percentage</th>
+                  <th>Year of passing</th>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>class X</td>
+                  <td>
+                    <input type="text" id="board1" max="10" />
+                  </td>
+                  <td>
+                    <input type="number" id="percentage1" step=".01" min="0" />
+                  </td>
+                  <td>
+                    <input type="text" id="yearOfPassing1" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>2</td>
+                  <td>class XII</td>
+                  <td>
+                    <input type="text" id="board2" max="10" />
+                  </td>
+                  <td>
+                    <input type="number" id="percentage2" step=".01" min="0" />
+                  </td>
+                  <td>
+                    <input type="text" id="yearOfPassing2" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>Graduation</td>
+                  <td>
+                    <input type="text" id="board3" max="10" />
+                  </td>
+                  <td>
+                    <input type="number" id="percentage3" step=".01" min="0" />
+                  </td>
+                  <td>
+                    <input type="text" id="yearOfPassing3" />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>4</td>
+                  <td>Masters</td>
+                  <td>
+                    <input type="text" id="board4" max="10" />
+                  </td>
+                  <td>
+                    <input type="number" id="percentage4" step=".01" min="0" />
+                  </td>
+                  <td>
+                    <input type="text" id="yearOfPassing4" />
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <center><span>(10 Char Max)</span></center>
+                  </td>
+                  <td>
+                    <center><span>(Upto 2 decimal)</span></center>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <label class="main_label" for="tel">COURSES APPLIED FOR:</label>
+            </td>
+            <td>
+              <label for="BCA">BCA</label>
+              <input type="radio" name="course" id="BCA" value="BCA" />
+
+              <label for="B.COM">B.COM</label>
+              <input type="radio" name="course" id="B.COM" value="B.COM" />
+
+              <label for="BSc">BSc</label>
+              <input type="radio" name="course" id="BSc" value="BSc" />
+
+              <label for="B.A">B.A</label>
+              <input type="radio" name="course" id="B.A" value="B.A" />
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <center>
+                <button type="submit">Submit</button>
+                <button type="rese">Reset</button>
+              </center>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </main>
+  </body>
+</html>
+
+------------------------------------------------------------------------------------------------------------------
+Q3
+
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <form id="form">
+      <label for="marks">Marks</label>
+      <input type="number" name="marks" id="marks" min="0" max="100" />
+
+      <br />
+      <br />
+
+      <label for="grade">Grade</label>
+      <input type="text" name="grade" id="grade" readonly />
+
+      <button type="submit">Calculate</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <script>
+      const marks = document.getElementById("marks");
+      const grade = document.getElementById("grade");
+      const form = document.getElementById("form");
+
+      function calculate() {
+        const mark = parseInt(marks.value);
+
+        if (mark >= 75) grade.value = "A+";
+        else if (mark >= 70 && mark < 75) grade.value = "A";
+        else if (mark >= 65 && mark < 70) grade.value = "A-";
+        else if (mark >= 60 && mark < 65) grade.value = "B+";
+        else if (mark >= 55 && mark < 60) grade.value = "B";
+        else if (mark >= 50 && mark < 55) grade.value = "B-";
+        else if (mark >= 45 && mark < 50) grade.value = "C+";
+        else if (mark >= 40 && mark < 45) grade.value = "C";
+        else if (mark < 40) grade.value = "D";
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        calculate();
+      });
+    </script>
+  </body>
+</html>
 
 
+//normal border
 
-=======================Joining====================================
+#container
+{
+	width:80%;
+	margin:10px 10px 10px 10px;
+	padding:20px;
+	border: 1px solid #666;
+	background: #ffffff;
+	
+}
 
-SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+<link rel="stylesheet" type="text/css" href="18.css" />
+------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+	<head><title>nvn1</title></head>
+	<body>
+		<h2>HTML FORM</h2>
+		<br><br>
+		
+		<form>
+			Name: <input type = "text" name = "name"><br><br>
+			Email: <input type = "text" name = "email"><br><br>
+			Password: <input type = "password" name = "password"><br><br>
+			Gender: <input type = "radio" name = "gender" value="Male"> Male
+					<input type = "radio" name = "gender" value = "Female">Female <br><br>
+			Qualification: <input type = "checkbox" name = "qua" value = "al">AL
+						   <input type = "checkbox" name = "qua" value = "ol">OL
+						   <input type = "checkbox" name = "qua" value = "cam">University<br><br>
+						   
+			Course: <select name = "crs">
+						<option name = "cs">CS</option>
+						<option name = "ps">PS</option>
+						<option name = "sdd">SIDDHA</option>
+						<option name = "LCS">LCS</option>
+					</select>
+					
+			<bR><br>
+			
+			<p>Message:</p> 
+			<textarea name = "msg" rows = 5 cols = 30></textarea>
+			<br><br>
+			<input type = "submit" value = "SUBMIT">
+			<input type = "reset" value = "Reset">
+			<input type = "button" value = "dddd">
+		</form>
+	</body>
+</html>
 
+--------------------------------------------------------------------
 
-SELECT Orders.OrderID, Customers.CustomerName
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+//time table
 
-
-SELECT Customers.CustomerName, Orders.OrderID
-FROM Customers
-LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
-ORDER BY Customers.CustomerName;
-
-
-SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
-FROM Orders
-RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
-ORDER BY Orders.OrderID;
-
-
-SELECT Customers.CustomerName, Orders.OrderID
-FROM Customers
-FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
-ORDER BY Customers.CustomerName;
-
-
-SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
-FROM Customers A, Customers B
-WHERE A.CustomerID <> B.CustomerID
-AND A.City = B.City
-ORDER BY A.City;
-
-
-SELECT City FROM Customers
-UNION
-SELECT City FROM Suppliers
-ORDER BY City;
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+	<table border="2px solid black">
+	
+	<tr>
+	<th><center>Day</th>
+	<th><center>I<br>8.30-10.30</th>
+	<th><center>2<br>8.30-10.30</th>
+	<th><center>3<br>8.30-10.30</th>
+	<th><center>8.30-10.30</th>
+	<th><center>4<br>8.30-10.30</th>
+	<th><center>5<br>8.30-10.30</th>
+	<th><center>6<br>8.30-10.30</th>
+	</tr>
+	
+	<tr>
+	<td><center>mon</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td rowspan="5"><center>L<br><center>U<br><center>N<br><center>C<br><center>H</td>
+	<td colspan="3"><center>lab</td>
+	</tr>
+	
+	<tr>
+	<td><center>tue</td>
+	<td colspan="3"><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	</tr>
+	
+	<tr>
+	<td><center>wed</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td colspan="2"><center>lab</td>
+	</tr>
+	
+	<tr>
+	<td><center>thr</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td colspan="3"><center>lab</td>
+	</tr>
+	
+	<tr>
+	<td><center>fri</td>
+	<td colspan="3"><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	<td><center>1225</td>
+	</tr>
+	
+	</table>
+  </body>
+  </html>
