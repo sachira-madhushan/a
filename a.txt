@@ -1,879 +1,1283 @@
-// 2018
-Q1
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body>
-    <h1>Diagnosing foliage problem</h1>
 
-    <ol type="1">
-      <li>Yellow</li>
-      <ul type="circle">
-        <li>Wet soil</li>
-        <li>Low fertility</li>
-        <li>Root rot pathogens</li>
-        <li>Root cut or damaged</li>
-        <li>Nematodes</li>
-      </ul>
-      <li>Necrotic spots</li>
-      <li>White powder</li>
-      <li>Light and dark green areas</li>
-      <li>Holes or chewed areas</li>
-    </ol>
-  </body>
-</html>
+...................................................
+....................................................
+Write a C++ functions to return the output expected. 
+1.	HCF (Highest Common Factor) for given two positive integers
 
---------------------------------------------------------------------------------------------
-Q2
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body>
-    <h1>Application Form</h1>
 
-    <form>
-      <div>
-        <label for="fname">First Name:</label>
-        <input type="text" name="fname" id="fname" />
-
-        <label for="lname">Last Name:</label>
-        <input type="text" name="lname" id="lname" />
-      </div>
-
-      <br />
-
-      <div>
-        <label for="dob">Date of birth:</label>
-        <input type="date" name="dob" id="dob" />
-
-        <label for="email">Email Address:</label>
-        <input type="email" name="email" id="email" />
-      </div>
-
-      <br />
-
-      <div>
-        <label for="">Available positions:</label>
-
-        <input
-          type="radio"
-          name="positions"
-          id="juniorDeveloper"
-          value="junior developer"
-        />
-        <label for="juniorDeveloper">Junior Developer:</label>
-
-        <input
-          type="radio"
-          name="positions"
-          id="midLevelDeveloper"
-          value="mid-level developer"
-        />
-        <label for="midLevelDeveloper">Mid-Level Developer:</label>
-
-        <input
-          type="radio"
-          name="positions"
-          id="seniorDeveloper"
-          value="senior developer"
-        />
-        <label for="seniorDeveloper">Senior Developer:</label>
-      </div>
-
-      <br />
-
-      <div>
-        <label for="">Programming Languages:</label>
-
-        <input type="checkbox" name="java" id="java" value="java" />
-        <label for="java">Java</label>
-
-        <input
-          type="checkbox"
-          name="javascript"
-          id="javascript"
-          value="javascript"
-        />
-        <label for="javascript">Javascript</label>
-
-        <input type="checkbox" name="python" id="python" value="python" />
-        <label for="python">Python</label>
-      </div>
-
-      <br />
-
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" />
-
-        <label for="confpassword">Confirm Password:</label>
-        <input type="password" name="confpassword" id="confpassword" />
-      </div>
-
-      <br />
-
-      <div>
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-      </div>
-    </form>
-  </body>
-</html>
-
---------------------------------------------------------------------------------------------------------
-Q3
-
-//html code
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <link rel="stylesheet" href="./q3_styles.css" />
-  </head>
-  <body>
-    <main>
-      <div class="container">
-        <form id="form">
-          <div class="">
-            <label for="decimal">Enter decimal value:</label>
-            <input type="number" name="decimal" id="decimal" min="0" required />
-          </div>
-
-          <div class="btns">
-            <button type="submit" class="btn green">Convert</button>
-            <button type="reset" class="btn gray">Reset</button>
-          </div>
-        </form>
-
-        <div class="">
-          <label for="binary">Binary Number:</label>
-          <textarea name="binary" id="binary"></textarea>
-        </div>
-
-        <div class="">
-          <label for="hex">Hex Number:</label>
-          <textarea name="hex" id="hex"></textarea>
-        </div>
-
-        <div class="">
-          <label for="octal">Octal Number:</label>
-          <textarea name="octal" id="octal"></textarea>
-        </div>
-      </div>
-    </main>
-
-    <script src="./q3_script.js"></script>
-  </body>
-</html>
-
-//css code
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-main {
-  height: 100vh;
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 500px;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-
-label {
-  display: block;
-  font-size: 15px;
-  color: rgb(62, 62, 62);
-}
-
-input[type="number"],
-textarea {
-  width: 100%;
-  padding: 5px 8px;
-  margin-top: 10px;
-}
-
-.btns {
-  margin: 10px 0;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn {
-  padding: 5px 10px;
-  appearance: none;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.green {
-  background-color: rgb(186, 241, 186);
-  color: rgb(5, 99, 5);
-}
-
-.gray {
-  background-color: rgb(225, 225, 225);
-  color: rgb(66, 66, 66);
-}
-
-//js code
-
-const decimal = document.getElementById("decimal");
-const octal = document.getElementById("octal");
-const hex = document.getElementById("hex");
-const form = document.getElementById("form");
-
-function convertDecimal(decimal, base) {
-  let rem = 0;
-  let divident = decimal;
-  let divisor = base;
-  let value = "";
-
-  const hexMap = {
-    10: "A",
-    11: "B",
-    12: "C",
-    13: "D",
-    14: "E",
-    15: "F",
-  };
-
-  while (divident >= 1) {
-    rem = divident % divisor;
-    divident = parseInt(divident / divisor);
-    if (base === 16 && rem >= 10) {
-      rem = hexMap[rem];
+#include <iostream>
+int calculateHCF(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
     }
-    value = rem + value;
-  }
-  return value;
+    return a;
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  binary.innerText = convertDecimal(parseInt(decimal.value), 2);
-  hex.innerText = convertDecimal(parseInt(decimal.value), 16);
-  octal.innerText = convertDecimal(parseInt(decimal.value), 8);
-});
+int main() {
+   
+    int num1, num2;
+    std::cout << "Enter first positive integer: ";
+    std::cin >> num1;
 
-form.addEventListener("reset", (e) => {
-  binary.innerText = "";
-  octal.innerText = "";
-  hex.innerText = "";
-});
+    std::cout << "Enter second positive integer: ";
+    std::cin >> num2;
 
-----------------------------------------------------------------------------------------------------------------
-//2017
-Q1
+    if (num1 <= 0 || num2 <= 0) {
+        std::cerr << "Please enter positive integers only." << std::endl;
+        return 1; // Return an error code
+    }
 
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body>
-    <table border="2px solid black">
-      <tr>
-        <th>
-          <img
-            width="250px"
-            src="https://site-images.similarcdn.com/url?url=https%3A%2F%2Fplay-lh.googleusercontent.com%2FDTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr&h=b843ab20277d325430b084a49cb711f12b2726be176ab9ff97c2958dbe785046"
-            alt=""
-          />
-        </th>
-        <th>
-          <h1>Welcome to New Skill Academy</h1>
-        </th>
-      </tr>
+    int hcf = calculateHCF(num1, num2);
+    std::cout << "HCF of " << num1 << " and " << num2 << " is: " << hcf << std::endl;
 
-      <tr>
-        <td colspan="2">
-          New Skills Academy is an institution for higher learining research,
-          and honarary degree New Skills Academy is the <br />
-          worldwide group composed of professors and researchers, at the
-          institute of higher learning.
-        </td>
-      </tr>
-    </table>
+    return 0;
 
-    <br />
-
-    <table border="2px solid black">
-      <tr>
-        <th>Calculus and Analytical geometry</th>
-        <th>Statistics</th>
-        <th></th>
-      </tr>
-
-      <tr>
-        <td>
-          topic: include a vector in three space three dimenstional space
-          multivariate functions etc
-        </td>
-        <td>
-          Mathematical alaysis representations and synopses for a given set of
-          experimental data or real life studies.
-        </td>
-        <td rowspan="2">
-          <img
-            width="450px"
-            src="https://img.freepik.com/premium-photo/teenager-student-girl-yellow-pointing-finger-side_1368-40175.jpg?w=2000"
-            alt=""
-          />
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="2"></td>
-      </tr>
-    </table>
-  </body>
-</html>
-
--------------------------------------------------------------------------------------------------------------------
-Q2
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      .main_table > tr,
-      td {
-        padding: 10px 0px;
-      }
-
-      .sub_table > tr,
-      td {
-        padding: 5px 0px;
-      }
-
-      .sub_table {
-        border: 2px solid black;
-        padding: 0 5px;
-      }
-
-      .main_label {
-        margin-right: 50px;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .form {
-        width: max-content;
-        padding: 10px;
-        border: 2px solid black;
-        background: lightgray;
-      }
-
-      .title {
-        text-decoration: underline;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="container">
-      <h1 class="title">STUDENT REGISTRATION FORM</h1>
-
-      <form action="" class="form">
-        <table class="main_table">
-          <tr>
-            <td>
-              <label class="main_label" for="fname">FIRST NAME</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="fname"
-                id="fname"
-                maxlength="30"
-                pattern="[a-zA-Z]"
-                required
-              />
-              <span>(max 30 characters a-z and A-Z)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="lname">LAST NAME</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="lname"
-                id="lname"
-                maxlength="30"
-                pattern="[a-zA-Z]"
-                required
-              />
-              <span>(max 30 characters a-z and A-Z)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="dob">DATE OF BIRTH</label>
-            </td>
-            <td>
-              <input type="date" name="dob" id="dob" required />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="email">EMAIL ID</label>
-            </td>
-            <td>
-              <input type="email" name="email" id="email" required />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="tel">MOBILE NUMBER</label>
-            </td>
-            <td>
-              <input type="tel" name="tel" id="tel" max="10" required />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="tel">GENDER</label>
-            </td>
-            <td>
-              <label for="male">Male</label>
-              <input type="radio" name="gender" id="male" value="male" />
-
-              <label for="female">Female</label>
-              <input type="radio" name="gender" id="female" value="female" />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="address">ADDRESS</label>
-            </td>
-            <td>
-              <textarea
-                name="address"
-                id="address"
-                cols="30"
-                rows="5"
-              ></textarea>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="city">CITY</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="city"
-                id="city"
-                max="30"
-                pattern="[a-zA-Z]"
-                required
-              />
-              <span>(max 30 characters a-z and A-Z)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="pinCode">PIN CODE</label>
-            </td>
-            <td>
-              <input
-                type="number"
-                name="pinCode"
-                id="pinCode"
-                max="6"
-                required
-              />
-              <span>(6 digit number)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="state">STATE</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="state"
-                id="state"
-                max="30"
-                pattern="[a-zA-Z]"
-                required
-              />
-              <span>(max 30 characters a-z and A-Z)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="country">COUNTRY</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="country"
-                id="country"
-                value="India"
-                required
-              />
-              <span>(max 30 characters a-z and A-Z)</span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="hobbies">HOBIES</label>
-            </td>
-            <td>
-              <label for="Drawing">Drawing</label>
-              <input
-                type="checkbox"
-                name="hobby"
-                id="Drawing"
-                value="Drawing"
-              />
-
-              <label for="Singing">Singing</label>
-              <input
-                type="checkbox"
-                name="hobby"
-                id="Singing"
-                value="Singing"
-              />
-
-              <label for="Dancing">Dancing</label>
-              <input
-                type="checkbox"
-                name="hobby"
-                id="Dancing"
-                value="Dancing"
-              />
-
-              <label for="Sketching">Sketching</label>
-              <input
-                type="checkbox"
-                name="hobby"
-                id="Sketching"
-                value="Sketching"
-              />
-
-              <label for="Other">Other</label>
-              <input type="checkbox" name="hobby" id="Other" value="Other" />
-
-              <input type="text" name="other" />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="qualification"
-                >QUALIFICATION</label
-              >
-            </td>
-
-            <td class="sub_table">
-              <table>
-                <tr>
-                  <th>Si.No</th>
-                  <th>Examination</th>
-                  <th>Board</th>
-                  <th>Percentage</th>
-                  <th>Year of passing</th>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>class X</td>
-                  <td>
-                    <input type="text" id="board1" max="10" />
-                  </td>
-                  <td>
-                    <input type="number" id="percentage1" step=".01" min="0" />
-                  </td>
-                  <td>
-                    <input type="text" id="yearOfPassing1" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>2</td>
-                  <td>class XII</td>
-                  <td>
-                    <input type="text" id="board2" max="10" />
-                  </td>
-                  <td>
-                    <input type="number" id="percentage2" step=".01" min="0" />
-                  </td>
-                  <td>
-                    <input type="text" id="yearOfPassing2" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>3</td>
-                  <td>Graduation</td>
-                  <td>
-                    <input type="text" id="board3" max="10" />
-                  </td>
-                  <td>
-                    <input type="number" id="percentage3" step=".01" min="0" />
-                  </td>
-                  <td>
-                    <input type="text" id="yearOfPassing3" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>4</td>
-                  <td>Masters</td>
-                  <td>
-                    <input type="text" id="board4" max="10" />
-                  </td>
-                  <td>
-                    <input type="number" id="percentage4" step=".01" min="0" />
-                  </td>
-                  <td>
-                    <input type="text" id="yearOfPassing4" />
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <center><span>(10 Char Max)</span></center>
-                  </td>
-                  <td>
-                    <center><span>(Upto 2 decimal)</span></center>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="main_label" for="tel">COURSES APPLIED FOR:</label>
-            </td>
-            <td>
-              <label for="BCA">BCA</label>
-              <input type="radio" name="course" id="BCA" value="BCA" />
-
-              <label for="B.COM">B.COM</label>
-              <input type="radio" name="course" id="B.COM" value="B.COM" />
-
-              <label for="BSc">BSc</label>
-              <input type="radio" name="course" id="BSc" value="BSc" />
-
-              <label for="B.A">B.A</label>
-              <input type="radio" name="course" id="B.A" value="B.A" />
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="2">
-              <center>
-                <button type="submit">Submit</button>
-                <button type="rese">Reset</button>
-              </center>
-            </td>
-          </tr>
-        </table>
-      </form>
-    </main>
-  </body>
-</html>
-
-------------------------------------------------------------------------------------------------------------------
-Q3
-
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body>
-    <form id="form">
-      <label for="marks">Marks</label>
-      <input type="number" name="marks" id="marks" min="0" max="100" />
-
-      <br />
-      <br />
-
-      <label for="grade">Grade</label>
-      <input type="text" name="grade" id="grade" readonly />
-
-      <button type="submit">Calculate</button>
-      <button type="reset">Reset</button>
-    </form>
-
-    <script>
-      const marks = document.getElementById("marks");
-      const grade = document.getElementById("grade");
-      const form = document.getElementById("form");
-
-      function calculate() {
-        const mark = parseInt(marks.value);
-
-        if (mark >= 75) grade.value = "A+";
-        else if (mark >= 70 && mark < 75) grade.value = "A";
-        else if (mark >= 65 && mark < 70) grade.value = "A-";
-        else if (mark >= 60 && mark < 65) grade.value = "B+";
-        else if (mark >= 55 && mark < 60) grade.value = "B";
-        else if (mark >= 50 && mark < 55) grade.value = "B-";
-        else if (mark >= 45 && mark < 50) grade.value = "C+";
-        else if (mark >= 40 && mark < 45) grade.value = "C";
-        else if (mark < 40) grade.value = "D";
-      }
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        calculate();
-      });
-    </script>
-  </body>
-</html>
-
-
-//normal border
-
-#container
-{
-	width:80%;
-	margin:10px 10px 10px 10px;
-	padding:20px;
-	border: 1px solid #666;
-	background: #ffffff;
-	
 }
 
-<link rel="stylesheet" type="text/css" href="18.css" />
-------------------------------------------------------------------------------------------------
-<!DOCTYPE html>
-<html>
-	<head><title>nvn1</title></head>
-	<body>
-		<h2>HTML FORM</h2>
-		<br><br>
-		
-		<form>
-			Name: <input type = "text" name = "name"><br><br>
-			Email: <input type = "text" name = "email"><br><br>
-			Password: <input type = "password" name = "password"><br><br>
-			Gender: <input type = "radio" name = "gender" value="Male"> Male
-					<input type = "radio" name = "gender" value = "Female">Female <br><br>
-			Qualification: <input type = "checkbox" name = "qua" value = "al">AL
-						   <input type = "checkbox" name = "qua" value = "ol">OL
-						   <input type = "checkbox" name = "qua" value = "cam">University<br><br>
-						   
-			Course: <select name = "crs">
-						<option name = "cs">CS</option>
-						<option name = "ps">PS</option>
-						<option name = "sdd">SIDDHA</option>
-						<option name = "LCS">LCS</option>
-					</select>
-					
-			<bR><br>
-			
-			<p>Message:</p> 
-			<textarea name = "msg" rows = 5 cols = 30></textarea>
-			<br><br>
-			<input type = "submit" value = "SUBMIT">
-			<input type = "reset" value = "Reset">
-			<input type = "button" value = "dddd">
-		</form>
-	</body>
-</html>
 
---------------------------------------------------------------------
+////////////
 
-//time table
+LCM (Least Common Multiple) for given two positive numbers
 
-<!DOCTYPE html>
-<html>
-  <head> </head>
-  <body>
-	<table border="2px solid black">
+
+#include <iostream>
+
+int calculateLCM(int a, int b) {
+    
+    if (a <= 0 || b <= 0) {
+        std::cerr << "Please enter positive integers only." << std::endl;
+        return -1; // Return an error code
+    }
+    
+    int hcf = a;
+    while (hcf % b != 0) {
+        hcf += a;
+    }
+
+    int lcm = (a * b) / hcf;
+    return lcm;
+}
+
+int main() {
+    
+    int num1, num2;
+    std::cout << "Enter first positive integer: ";
+    std::cin >> num1;
+
+    std::cout << "Enter second positive integer: ";
+    std::cin >> num2;
+
+    int lcm = calculateLCM(num1, num2);
+    if (lcm != -1) {
+        std::cout << "LCM of " << num1 << " and " << num2 << " is: " << lcm << std::endl;
+    }
+
+    return 0;
+}
+
+//////////////////////////
+
+3.	Factorial of n, (n!) for a given non negative integer, n. (n!=n(n-1)(n-2)(n-3)……3.2.1)
+
+
+#include <iostream>
+unsigned long long calculateFactorial(int n) {
+   
+    if (n < 0) {
+        std::cerr << "Factorial is undefined for negative numbers." << std::endl;
+        return 0; 
+    }
+
+    if (n == 0) {
+        return 1;
+    }
+
+    unsigned long long factorial = 1;
+    for (int i = 1; i <= n; ++i) {
+        factorial *= i;
+    }
+
+    return factorial;
+}
+
+int main() {
+    
+    int num;
+    std::cout << "Enter a non-negative integer: ";
+    std::cin >> num;
+
+    unsigned long long result = calculateFactorial(num);
+    if (result != 0) {
+        std::cout << "Factorial of " << num << " is: " << result << std::endl;
+    }
+
+    return 0;
+}
+
+///////////////
+
+Permutation of r objects from n distinct objects. [(_r^n)P=n!/(n-r)!]
+
+#include <iostream>
+
+unsigned long long calculatePermutation(int n, int r) {
+    
+    if (n < 0 || r < 0) {
+        std::cerr << "Please enter non-negative values for n and r." << std::endl;
+        return 0; // Return an error code
+    }
+
+    if (r > n) {
+        std::cerr << "r should be less than or equal to n." << std::endl;
+        return 0; // Return an error code
+    }
+
+    unsigned long long numerator = 1;
+    for (int i = 1; i <= n; ++i) {
+        numerator *= i;
+    }
+
+    unsigned long long denominator = 1;
+    for (int i = 1; i <= (n - r); ++i) {
+        denominator *= i;
+    }
+
+    unsigned long long permutation = numerator / denominator;
+    return permutation;
+}
+
+int main() {
+    
+    int n, r;
+    std::cout << "Enter the value of n: ";
+    std::cin >> n;
+
+    std::cout << "Enter the value of r: ";
+    std::cin >> r;
+
+   
+    unsigned long long result = calculatePermutation(n, r);
+    if (result != 0) {
+        std::cout << "Permutation of " << r << " objects from " << n << " distinct objects is: " << result << std::endl;
+    }
+
+    return 0;
+}
+
+//////////////////////////
+
+	Combinations of r objects from n distinct objects.[(_r^n)C=n!/r!(n-r)!]
 	
-	<tr>
-	<th><center>Day</th>
-	<th><center>I<br>8.30-10.30</th>
-	<th><center>2<br>8.30-10.30</th>
-	<th><center>3<br>8.30-10.30</th>
-	<th><center>8.30-10.30</th>
-	<th><center>4<br>8.30-10.30</th>
-	<th><center>5<br>8.30-10.30</th>
-	<th><center>6<br>8.30-10.30</th>
-	</tr>
+	#include <iostream>
+
+
+unsigned long long calculateCombination(int n, int r) {
+    
+    if (n < 0 || r < 0) {
+        std::cerr << "Please enter non-negative values for n and r." << std::endl;
+        return 0; 
+    }
+
+    // Ensure r is less than or equal to n
+    if (r > n) {
+        std::cerr << "r should be less than or equal to n." << std::endl;
+        return 0; 
+    }
+
+    
+    unsigned long long numerator = 1;
+    for (int i = 1; i <= n; ++i) {
+        numerator *= i;
+    }
+
+    unsigned long long denominator_r = 1;
+    for (int i = 1; i <= r; ++i) {
+        denominator_r *= i;
+    }
+
+    unsigned long long denominator_n_minus_r = 1;
+    for (int i = 1; i <= (n - r); ++i) {
+        denominator_n_minus_r *= i;
+    }
+
+    unsigned long long combination = numerator / (denominator_r * denominator_n_minus_r);
+    return combination;
+}
+
+int main() {
+   
+    int n, r;
+    std::cout << "Enter the value of n: ";
+    std::cin >> n;
+
+    std::cout << "Enter the value of r: ";
+    std::cin >> r;
+
+    unsigned long long result = calculateCombination(n, r);
+    if (result != 0) {
+        std::cout << "Combination of " << r << " objects from " << n << " distinct objects is: " << result << std::endl;
+    }
+
+    return 0;
+}
+
+...................................................................................
+...................................................................................
+.................................................................................
+
+usnathwaya gana
+
+#include <iostream>
+using namespace std;
+
+void print(double f,double c,double k){
+    cout<<f<<"F"<<endl;
+    cout<<c<<"C"<<endl;
+    cout<<k<<"K"<<endl;
+}
+
+
+int main() {
+    cout<<"enter temp :"<<endl;
+    double temp;
+    cin>>temp;
+    cout<<"enter the unit:(f,c,k)"<<endl;
+    char unit;
+    cin>>unit;
+    
+    double f,c,k;
+    
+    if(unit == 'f'|| unit == 'F'){
+        f=temp;
+        c = static_cast<double>(f-32)*5/9;
+        k = c+273.15;
+        print(f,c,k);
+    }
+    else if(unit == 'c'|| unit == 'C'){
+        f=(temp*9/5)+32;
+        c = temp;
+        k = c+273.15;
+        print(f,c,k);
+    }
+    else if(unit == 'k'|| unit == 'K'){
+        c = temp-273.15;
+        f=(c*9/5)+32;
+        k = temp;
+        print(f,c,k);
+    }
+return 0;
+}
+
+
+...............................................................................
+.................................................................................
+
+array gana
+anith paththa harawala hadana eka
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    int arr[10]={25,32,45,2,13,9,6,10,17,4};
+    int num;
+    cout<<"enter search key :";
+    cin>>num;
+    int var=0;
+    for(int i=0;i<10;i++){
+        if(arr[i]==num){
+            var =i;
+            break;
+        }
+    }
+    
+    if(var!=0){
+        cout<<"location is :"<<var+1<<endl;
+    }
+    else{
+         cout<<"location is not fount";
+    }
 	
-	<tr>
-	<td><center>mon</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td rowspan="5"><center>L<br><center>U<br><center>N<br><center>C<br><center>H</td>
-	<td colspan="3"><center>lab</td>
-	</tr>
-	
-	<tr>
-	<td><center>tue</td>
-	<td colspan="3"><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	</tr>
-	
-	<tr>
-	<td><center>wed</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td colspan="2"><center>lab</td>
-	</tr>
-	
-	<tr>
-	<td><center>thr</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td colspan="3"><center>lab</td>
-	</tr>
-	
-	<tr>
-	<td><center>fri</td>
-	<td colspan="3"><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	<td><center>1225</td>
-	</tr>
-	
-	</table>
-  </body>
-  </html>
+    return 0;
+}
+
+
+...................................................................
+.....................................................................
+
+
+kramaropitha gana
+
+#include <iostream>
+using namespace std;
+
+int factorial(int n){
+    if(n==0 || n==1){
+        return 1;
+    }
+    
+    return n*(factorial(n-1));
+   
+} 
+
+int main() {
+    
+    int m,n;
+    
+    cin>>m>>n;
+    
+    int fn = factorial(n);
+    int fnm = factorial(m-n);
+    
+ 
+    
+    double result= static_cast<double>(m - n)/(fn - fnm) ;
+    
+    cout<<result;
+
+
+    return 0;
+}
+...............................................................
+............................................................
+
+
+silinder gana ganakayaka gana 
+
+#include <iostream>;
+using namespace std;
+
+float circlearea(float r){
+    return 3.14*r*r;
+}
+
+float reatangleArea(float length,float width){
+    return length*width;
+}
+
+float getVolume(float area,float height){
+    return area*height;
+}
+
+int main(){
+char obj;
+   cout<<"enter your object tyep(when rectangular give R , else enter C) :"<<endl;
+   cin>>obj;
+   
+   if(obj == 'C' || obj=='c'){
+       float r,h,area,vol;
+       cout<<"enter the radius,height :"<<endl;
+       cin>>r>>h;
+       
+       area = circlearea(r);
+       vol= getVolume(area,h);
+       
+       cout<<"volume of cylinder : "<<vol;
+       
+   }
+   else if(obj == 'R' || obj=='r'){
+        float l,w,h,area,vol;
+        cout<<"enter the length,width,height :"<<endl;
+       cin>>l>>w>>h;
+       
+       area = reatangleArea(l,w);
+       vol= getVolume(area,h);
+       
+       cout<<"volume of rectangular : "<<vol;
+       
+   }else{
+       cout<<"your input object is in corect";
+   }
+   
+}
+
+.......................................................................
+......................................................................
+
+wachanayaka akuru maru karala yawana eka
+
+#include <iostream>;
+using namespace std;
+
+void reverse (char arr[],int n){
+    
+    for(int i=0;i<=n/2;i++){
+        int temp = arr[n-i-1] ;
+        
+        arr[n-i-1]=arr[i];
+        arr[i]=temp;
+    }
+    
+}
+
+int main(){
+    
+    char arr[5]={'a','b','c','d','e'};
+    reverse(arr,5);
+    
+    for(int i=0;i<5;i++){
+        cout<<arr[i]<<endl;
+    }
+      
+}
+
+....................................................
+.....................................................
+
+function   karanne kohomada
+
+#include <iostream>;
+using namespace std;
+
+void pennawa(int a){
+    cout<<a;
+}
+
+int sum(int a,int b){
+    return(a+b);
+}
+
+int main(){
+    //mata one input ganna 
+    int a,b;
+    cin>>a;
+    cin>>b;
+    //
+    int sum1 = sum(a,b);
+    cout<<sum1<<endl;
+    
+    pennawa(sum1);
+  return 0;  
+}
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+pass / fail /credit 
+
+#include <iostream>;
+using namespace std;
+
+int main() {
+    int mark=0;
+    int index;
+    string name;
+    
+    double pass=0;
+    double credit=0;
+    double fail=0;
+    double total=0;
+    
+    while(mark!=-1){
+        
+    cout<<"enter your marks:"<<endl;
+    cin>>mark;
+    
+        if(mark!=-1){
+            
+            cout<<"enter your name:"<<endl;
+            cin>>name;
+            cout<<"enter your index:"<<endl;
+            cin>>index;
+            
+                cout<<"---------------------------------"<<endl;
+                cout<<"name : "<<name<<endl;
+                cout<<"index : "<<index<<endl;
+            
+                if(mark<40){
+                    cout<<"fail"<<endl;
+                    fail++;
+                }
+                else if(mark<70){
+                    cout<<"pass"<<endl;
+                    pass= pass+1;
+                }
+                else{
+                    cout<<"credit"<<endl;
+                    credit+=1;
+                }
+             cout<<"---------------------------------"<<endl;
+             total++;
+        }  
+    
+    }
+    
+    cout<<"---------------------------------"<<endl;
+    
+    cout<<"precentage of :-"<<endl;
+    cout<<"pass = "<<(pass/total)*100<<" % ";
+    cout<<"credit = "<<(credit/total)*100<<" % ";
+    cout<<"fail = "<<(fail/total)*100<<" % ";
+
+    return 0;
+}
+
+......................................................................................
+.....................................................................................
+
+Sri Lankan Airlines (SLAL) operates a small commuter
+ airline with a single plane The airplane has 13 rows,
+ with six (6) seats in each row. Rows 1 and 2 are first 
+ class, nows 3 through 7 are business class, and rowa 8 through 13
+ are economy class.  Write a seating reservation programe that prompt the 
+ user to enter the following information.  
+ Assign seats for a commercial airplane in c++
+ 
+ 
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+class SeatReservation {
+private:
+    vector<vector<char>> seatMatrix;
+
+public:
+    SeatReservation() {
+        
+        seatMatrix.resize(13, vector<char>(6, 'E'));
+    }
+
+    void displaySeats() {
+        cout << "Current Seat Map:" << endl;
+        cout << setw(4) << " ";
+        for (int seatNum = 1; seatNum <= 6; ++seatNum) {
+            cout << setw(4) << "Seat " << seatNum;
+        }
+        cout << endl;
+
+        for (int row = 0; row < 13; ++row) {
+            cout << setw(3) << "Row " << (row + 1);
+            for (int seatNum = 0; seatNum < 6; ++seatNum) {
+                cout << setw(4) << seatMatrix[row][seatNum];
+            }
+            cout << endl;
+        }
+    }
+
+    void reserveSeat() {
+        int row, seat;
+        char classType;
+
+        cout << "Enter preferred class (F/B/E): ";
+        cin >> classType;
+
+        if (classType != 'F' && classType != 'B' && classType != 'E') {
+            cout << "Invalid class type. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred row number: ";
+        cin >> row;
+
+        if (row < 1 || row > 13) {
+            cout << "Invalid row number. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred seat number (1-6): ";
+        cin >> seat;
+
+        if (seat < 1 || seat > 6) {
+            cout << "Invalid seat number. Exiting reservation." << endl;
+            return;
+        }
+
+        --row;
+        --seat;
+
+        if (seatMatrix[row][seat] == 'E') {
+            seatMatrix[row][seat] = classType;
+            cout << "Seat reserved successfully!" << endl;
+        } else {
+            cout << "Sorry, the seat is already reserved. Please choose another seat." << endl;
+        }
+    }
+};
+
+int main() {
+    SeatReservation reservationSystem;
+    char choice;
+
+    do {
+        cout << "\n1. Display Seat Map\n";
+        cout << "2. Reserve a Seat\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice (1-3): ";
+        cin >> choice;
+
+        switch (choice) {
+            case '1':
+                reservationSystem.displaySeats();
+                break;
+            case '2':
+                reservationSystem.reserveSeat();
+                break;
+            case '3':
+                cout << "Exiting program. Thank you!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    } while (choice != '3');
+
+    return 0;
+}
+
+
+////////////////////
+ticket type (first class,business class, or economy class).
+
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+class SeatReservation {
+private:
+    vector<vector<char>> seatMatrix;
+
+public:
+    SeatReservation() {
+       
+        seatMatrix.resize(13, vector<char>(6, 'E'));
+    }
+
+    void displaySeats() {
+        cout << "Current Seat Map:" << endl;
+        cout << setw(6) << " ";
+        for (int seatNum = 1; seatNum <= 6; ++seatNum) {
+            cout << setw(10) << "Seat " << seatNum;
+        }
+        cout << endl;
+
+        for (int row = 0; row < 13; ++row) {
+            cout << setw(5) << "Row " << (row + 1);
+            for (int seatNum = 0; seatNum < 6; ++seatNum) {
+                cout << setw(10) << seatMatrix[row][seatNum];
+            }
+            cout << endl;
+        }
+    }
+
+    void reserveSeat() {
+        int row, seat;
+        char classType;
+
+        cout << "Enter preferred ticket type (F/B/E): ";
+        cin >> classType;
+
+        if (classType != 'F' && classType != 'B' && classType != 'E') {
+            cout << "Invalid ticket type. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred row number: ";
+        cin >> row;
+
+        if (row < 1 || row > 13) {
+            cout << "Invalid row number. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred seat number (1-6): ";
+        cin >> seat;
+
+        if (seat < 1 || seat > 6) {
+            cout << "Invalid seat number. Exiting reservation." << endl;
+            return;
+        }
+
+        // Adjust index values
+        --row;
+        --seat;
+        if (seatMatrix[row][seat] == 'E') {
+            seatMatrix[row][seat] = classType;
+            cout << "Seat reserved successfully!" << endl;
+        } else {
+            cout << "Sorry, the seat is already reserved. Please choose another seat." << endl;
+        }
+    }
+};
+
+int main() {
+    SeatReservation reservationSystem;
+    char choice;
+
+    do {
+        cout << "\n1. Display Seat Map\n";
+        cout << "2. Reserve a Seat\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice (1-3): ";
+        cin >> choice;
+
+        switch (choice) {
+            case '1':
+                reservationSystem.displaySeats();
+                break;
+            case '2':
+                reservationSystem.reserveSeat();
+                break;
+            case '3':
+                cout << "Exiting program. Thank you!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    } while (choice != '3');
+
+    return 0;
+}
+
+///////////////////
+
+desired seat
+
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+class SeatReservation {
+private:
+    vector<vector<pair<char, string>>> seatMatrix;
+
+public:
+    SeatReservation() {
+        
+        seatMatrix.resize(13, vector<pair<char, string>>(6, make_pair('E', "")));
+    }
+
+    void displaySeats() {
+        cout << "Current Seat Map:" << endl;
+        cout << setw(10) << " ";
+        for (int seatNum = 1; seatNum <= 6; ++seatNum) {
+            cout << setw(15) << "Seat " << seatNum;
+        }
+        cout << endl;
+
+        for (int row = 0; row < 13; ++row) {
+            cout << setw(7) << "Row " << (row + 1);
+            for (int seatNum = 0; seatNum < 6; ++seatNum) {
+                cout << setw(15) << seatMatrix[row][seatNum].first;
+            }
+            cout << endl;
+        }
+    }
+
+    void reserveSeat() {
+        int row, seat;
+        char classType;
+
+        cout << "Enter preferred ticket type (F/B/E): ";
+        cin >> classType;
+
+        if (classType != 'F' && classType != 'B' && classType != 'E') {
+            cout << "Invalid ticket type. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred row number: ";
+        cin >> row;
+
+        if (row < 1 || row > 13) {
+            cout << "Invalid row number. Exiting reservation." << endl;
+            return;
+        }
+
+        cout << "Enter preferred seat number (1-6): ";
+        cin >> seat;
+
+        if (seat < 1 || seat > 6) {
+            cout << "Invalid seat number. Exiting reservation." << endl;
+            return;
+        }
+
+        
+        --row;
+        --seat;
+
+        
+        if (seatMatrix[row][seat].first == 'E') {
+            seatMatrix[row][seat] = make_pair(classType, "Reserved");
+            cout << "Seat reserved successfully! (Row " << row + 1 << ", Seat " << seat + 1 << ", Class " << classType << ")" << endl;
+        } else {
+            cout << "Sorry, the seat is already reserved. Please choose another seat." << endl;
+        }
+    }
+};
+
+int main() {
+    SeatReservation reservationSystem;
+    char choice;
+
+    do {
+        cout << "\n1. Display Seat Map\n";
+        cout << "2. Reserve a Seat\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice (1-3): ";
+        cin >> choice;
+
+        switch (choice) {
+            case '1':
+                reservationSystem.displaySeats();
+                break;
+            case '2':
+                reservationSystem.reserveSeat();
+                break;
+            case '3':
+                cout << "Exiting program. Thank you!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    } while (choice != '3');
+
+    return 0;
+}
+
+
+..............................................................
+.................................................................
+.............................................................
+
+Write a C++ Program to create the following pattern.
+     *
+    ***
+   *****
+  *******
+ *********
+ *********
+  *******
+   *****
+    ***
+     *
+	 
+	 #include <iostream>
+
+int main() {
+    int n = 5; 
+
+    
+    for (int i = 1; i <= n; ++i) {
+        
+        for (int j = 1; j <= n - i; ++j) {
+            std::cout << "  ";
+        }
+
+        
+        for (int k = 1; k <= 2 * i - 1; ++k) {
+            std::cout << "* ";
+        }
+
+        std::cout << std::endl;
+    }
+
+    
+    for (int i = n - 1; i >= 1; --i) {
+        
+        for (int j = 1; j <= n - i; ++j) {
+            std::cout << "  ";
+        }
+
+        
+        for (int k = 1; k <= 2 * i - 1; ++k) {
+            std::cout << "* ";
+        }
+
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+
+
+.....................................................
+
+....................................................
+
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int rows;
+
+    cout << "Enter number of rows: ";
+    cin >> rows;
+
+    for(int i = 1; i <= rows; ++i) {
+        for(int j = 1; j <= i; ++j) {
+            cout << j << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+...............................................
+...............................................
+
+A
+B B
+C C C
+D D D D
+E E E E E
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    char input, alphabet = 'A';
+
+    cout << "Enter the uppercase character you want to print in the last row: ";
+    cin >> input;
+
+    // convert input character to uppercase
+    input = toupper(input);
+
+    for(int i = 1; i <= (input-'A'+1); ++i) {
+        for(int j = 1; j <= i; ++j) {
+            cout << alphabet << " ";
+        }
+        ++alphabet;
+
+        cout << endl;
+    }
+    return 0;
+}
+....................................................
+......................................................
+
+1 2 3 4 5
+1 2 3 4 
+1 2 3
+1 2
+1
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int rows;
+
+    cout << "Enter number of rows: ";
+    cin >> rows;
+
+    for(int i = rows; i >= 1; --i)
+    {
+        for(int j = 1; j <= i; ++j)
+        {
+            cout << j << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+............................................
+..............................................
+
+        *
+      * * *
+    * * * * *
+  * * * * * * *
+* * * * * * * * *
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int space, rows;
+
+    cout <<"Enter number of rows: ";
+    cin >> rows;
+
+    for(int i = 1, k = 0; i <= rows; ++i, k = 0) {
+        for(space = 1; space <= rows-i; ++space) {
+            cout <<"  ";
+        }
+
+        while(k != 2*i-1) {
+            cout << "* ";
+            ++k;
+        }
+        cout << endl;
+    }    
+    return 0;
+}
+
+.................................................
+...............................................
+
+        1
+      2 3 2
+    3 4 5 4 3
+  4 5 6 7 6 5 4
+5 6 7 8 9 8 7 6 5
+
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int rows, count = 0, count1 = 0, k = 0;
+
+    cout << "Enter number of rows: ";
+    cin >> rows;
+
+    for(int i = 1; i <= rows; ++i) {
+        for(int space = 1; space <= rows-i; ++space) {
+            cout << "  ";
+            ++count;
+        }
+
+        while(k != 2*i-1) {
+            if (count <= rows-1) {
+                cout << i+k << " ";
+                ++count;
+            }
+            else {
+                ++count1;
+                cout << i+k-2*count1 << " ";
+            }
+            ++k;
+        }
+        count1 = count = k = 0;
+
+        cout << endl;
+    }
+    return 0;
+}
+
+
+.........................................
+........................................
+;;
+
+Write a function to accommodate the following matrix operations:
+(Your matrix should be of size 10x10).
+(You can be able to enter the rows and columns of the matrices)
+1. To initialize the matrix,
+2. To print a matrix.
+3. To add two matrices and return the resultant matrix
+4. To multiply two matrices
+
+
+#include <iostream>
+
+const int ROWS = 10;
+const int COLS = 10;
+
+// Function to initialize a matrix
+void initializeMatrix(int matrix[ROWS][COLS], int rows, int cols) {
+    std::cout << "Enter the elements of the matrix:" << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << "Enter element at position (" << i + 1 << "," << j + 1 << "): ";
+            std::cin >> matrix[i][j];
+        }
+    }
+}
+
+// Function to print a matrix
+void printMatrix(int matrix[ROWS][COLS], int rows, int cols) {
+    std::cout << "Matrix:" << std::endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+// Function to add two matrices
+void addMatrices(const int matrix1[ROWS][COLS], const int matrix2[ROWS][COLS], int result[ROWS][COLS], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+}
+
+// Function to multiply two matrices
+void multiplyMatrices(const int matrix1[ROWS][COLS], const int matrix2[ROWS][COLS], int result[ROWS][COLS], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            result[i][j] = 0;
+            for (int k = 0; k < cols; ++k) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+    int matrix1[ROWS][COLS], matrix2[ROWS][COLS], result[ROWS][COLS];
+
+    // Initialize matrices
+    initializeMatrix(matrix1, ROWS, COLS);
+    initializeMatrix(matrix2, ROWS, COLS);
+
+    // Print matrices
+    std::cout << "\nMatrix 1:\n";
+    printMatrix(matrix1, ROWS, COLS);
+
+    std::cout << "\nMatrix 2:\n";
+    printMatrix(matrix2, ROWS, COLS);
+
+    // Add matrices
+    addMatrices(matrix1, matrix2, result, ROWS, COLS);
+    std::cout << "\nSum of Matrices:\n";
+    printMatrix(result, ROWS, COLS);
+
+    // Multiply matrices
+    multiplyMatrices(matrix1, matrix2, result, ROWS, COLS);
+    std::cout << "\nProduct of Matrices:\n";
+    printMatrix(result, ROWS, COLS);
+
+    return 0;
+}
+
+..................................................
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+..
+
+array
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Write C++ code here
+    
+    int arr[3][2] = {
+        {1,2},
+        {3,4},
+        {5,6},
+    };
+    
+    for (int i=0;i<3;i++){
+        cout<<"[ ";
+        for(int a=0;a<2;a++){
+           cout<<arr[i][a]<<" , "; 
+        }
+        cout<<" ] "<<endl;
+    }
+
+    return 0;
+}
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+array gannnawa
+
+#include <iostream>
+using namespace std;
+
+int arr1[3][3];//first
+int arr2[3][3];//second
+int arr3[3][3];//result
+    
+
+void getInput(int i) { // Adjust the parameter type
+    int val;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            cin >> val;
+            if(i == 1){
+                arr1[i][j] = val;
+            }else{
+                arr2[i][j] = val;
+            }
+            
+            
+        }
+    }
+}
+
+void print(int i) { // Adjust the parameter type
+    
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if(i == 1){
+                cout<<arr1[i][j]<<" , ";
+            }else if(2){
+                cout<<arr2[i][j]<<" , ";
+            }else{
+                cout<<arr3[i][j]<<" , ";
+            }
+             
+        }
+        cout<<endl;
+    }
+}
+
+void add(){
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            arr3[i][j] = arr2[i][j]+arr1[i][j];
+        }
+    }
+}
+void mul(){
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            arr3[i][j] = arr2[i][j]+arr1[j][i];
+        }
+    }
+}
+
+
+int main() {
+   
+ 
+    getInput(1);
+    getInput(2);
+    
+    cout<<endl;
+    print(1);
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    
+    print(2);
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    
+    add();
+    print(3);
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    
+    mul();
+    print(3);
+
+    return 0;
+}
+
+.............................,,ll
